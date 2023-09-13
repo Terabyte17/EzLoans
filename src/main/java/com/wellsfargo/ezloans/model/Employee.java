@@ -28,15 +28,21 @@ public class Employee {
 	@UuidGenerator
 	private String employee_id;
 	
-	private @NonNull String employee_name;
+	@Column(nullable=false)
+	private String employee_name;
 	
-	private @NonNull String designation;
+	@Column(nullable=false)
+	private String designation;
 	
-	private @NonNull String department;
+	@Column(nullable=false)
+	private String department;
 	
-	private @NonNull Gender gender;
+	@Column(nullable=false)
+	private Gender gender;
 	
-	private @NonNull Date dob;
+	@Column(nullable=false)
+	private Date dob;
 	
-	private @NonNull Date doj;
+	@Column(nullable=false)
+	private Date doj;
 }
