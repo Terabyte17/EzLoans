@@ -2,6 +2,9 @@ package com.wellsfargo.ezloans.model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,10 +24,12 @@ public class ItemPurchase {
 	
 	@ManyToOne
 	@JoinColumn(name="employeeId")
+	@JsonIgnoreProperties(value = {"employeeName", "designation", "department", "gender", "dob", "doj", "itemsPurchased"}, allowSetters=true)
 	private Employee emp;
 	
 	@OneToOne
 	@JoinColumn(name="itemId")
+	@JsonIgnoreProperties(value = {"itemDesc", "issueStatus", "itemMake", "itemCategory", "itemPurchased"}, allowSetters=true)
 	private Item item;
 	
 	@Column(nullable = false)
