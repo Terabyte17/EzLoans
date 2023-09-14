@@ -40,4 +40,38 @@ public class EmployeeLoan {
 	
 	@Column(nullable = false)
 	private Date cardIssueDate;
+
+	public Long getLoanIssueId() {
+		return loanIssueId;
+	}
+
+	public void setLoanIssueId(Long loanIssueId) {
+		this.loanIssueId = loanIssueId;
+	}
+
+	public Employee getEmp() {
+		return emp;
+	}
+
+	public void setEmp(Employee emp) {
+		this.emp = emp;
+	}
+
+	public LoanCard getLoanCard() {
+		return loanCard;
+	}
+
+	public void setLoanCard(LoanCard loanCard) {
+		this.loanCard = loanCard;
+	}
+
+	public Date getCardIssueDate() {
+		return cardIssueDate;
+	}
+
+	public void setCardIssueDate(Date cardIssueDate) {
+		this.cardIssueDate = cardIssueDate;
+	}
+	
+	
 }

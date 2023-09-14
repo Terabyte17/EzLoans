@@ -30,6 +30,7 @@ public class ItemPurchaseService {
 	
 	public ItemPurchase itemPurchased(ItemPurchase ip) throws Exception {
 		
+		//check issue status of item
 		Optional<Item> item = itemRepo.findById(ip.getItem().getItemId());
 		Optional<Employee> emp = empRepo.findById(ip.getEmp().getEmployeeId());
 		
@@ -38,6 +39,7 @@ public class ItemPurchaseService {
 			throw new Exception();
 		}
 		
+		item.get().setIssueStatus(true);
 		ip.setEmp(emp.get());
 		ip.setItem(item.get());
 		

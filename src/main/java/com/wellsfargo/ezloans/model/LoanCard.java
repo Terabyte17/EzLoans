@@ -34,5 +34,38 @@ public class LoanCard {
 	
 	@OneToMany(mappedBy="loanCard", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<EmployeeLoan> employeesIssued;
+
+	public String getLoanId() {
+		return loanId;
+	}
+
+	public void setLoanId(String loanId) {
+		this.loanId = loanId;
+	}
+
+	public Category getLoanType() {
+		return loanType;
+	}
+
+	public void setLoanType(Category loanType) {
+		this.loanType = loanType;
+	}
+
+	public Integer getDurationInYears() {
+		return durationInYears;
+	}
+
+	public void setDurationInYears(Integer durationInYears) {
+		this.durationInYears = durationInYears;
+	}
+
+	public Set<EmployeeLoan> getEmployeesIssued() {
+		return employeesIssued;
+	}
+
+	public void setEmployeesIssued(Set<EmployeeLoan> employeesIssued) {
+		this.employeesIssued = employeesIssued;
+	}
+	
 	
 }

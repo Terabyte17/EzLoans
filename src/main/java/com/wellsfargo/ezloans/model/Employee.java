@@ -34,7 +34,7 @@ public class Employee {
 	@Column(nullable=false)
 	private String designation;
 	
-	@Column(nullable=false)
+	//@Column(name="department", nullable=false)
 	private String department;
 	
 	@Column(nullable=false)
@@ -51,5 +51,79 @@ public class Employee {
 	
 	@OneToMany(mappedBy="emp", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<EmployeeLoan> loanCards;
+
+	public String getEmployeeId() {
+		return employeeId;
+	}
+
+	public void setEmployeeId(String employeeId) {
+		this.employeeId = employeeId;
+	}
+
+	public String getEmployeeName() {
+		return employeeName;
+	}
+
+	public void setEmployeeName(String employeeName) {
+		this.employeeName = employeeName;
+	}
+
+	public String getDesignation() {
+		return designation;
+	}
+
+	public void setDesignation(String designation) {
+		this.designation = designation;
+	}
+
+	public String getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
+	public Gender getGender() {
+		return gender;
+	}
+
+	public void setGender(Gender gender) {
+		this.gender = gender;
+	}
+
+	public Date getDob() {
+		return dob;
+	}
+
+	public void setDob(Date dob) {
+		this.dob = dob;
+	}
+
+	public Date getDoj() {
+		return doj;
+	}
+
+	public void setDoj(Date doj) {
+		this.doj = doj;
+	}
+
+	public Set<ItemPurchase> getItemsPurchased() {
+		return itemsPurchased;
+	}
+
+	public void setItemsPurchased(Set<ItemPurchase> itemsPurchased) {
+		this.itemsPurchased = itemsPurchased;
+	}
+
+	public Set<EmployeeLoan> getLoanCards() {
+		return loanCards;
+	}
+
+	public void setLoanCards(Set<EmployeeLoan> loanCards) {
+		this.loanCards = loanCards;
+	}
+	
+	
 	
 }
