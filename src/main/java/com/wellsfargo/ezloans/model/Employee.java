@@ -1,5 +1,7 @@
 package com.wellsfargo.ezloans.model;
 
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.Date;
 import java.util.Set;
 
@@ -46,11 +48,38 @@ public class Employee {
 	@Column(nullable=false)
 	private Date doj;
 	
+	@Column(nullable=false)
+	private String email;
+	
+	@Column(nullable=false)
+	private String password;
 	@OneToMany(mappedBy="emp", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<ItemPurchase> itemsPurchased;
 	
 	@OneToMany(mappedBy="emp", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<EmployeeLoan> loanCards;
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		
+		this.password = password;
+		Base64.Encoder encoder = Base64.getEncoder();  
+        String normalString = password;
+        String encodedString = encoder.encodeToString(normalString.getBytes(StandardCharsets.UTF_8));
+        this.password = encodedString;
+        
+	}
 
 	public String getEmployeeId() {
 		return employeeId;

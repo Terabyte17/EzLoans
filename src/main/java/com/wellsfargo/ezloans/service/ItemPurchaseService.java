@@ -39,6 +39,11 @@ public class ItemPurchaseService {
 			throw new Exception();
 		}
 		
+		if(item.get().getIssueStatus() == true) {
+			// specify exception type
+			throw new Exception();
+		}
+		
 		item.get().setIssueStatus(true);
 		ip.setEmp(emp.get());
 		ip.setItem(item.get());

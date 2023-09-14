@@ -30,7 +30,7 @@ public class EmployeeLoan {
 	
 	@ManyToOne
 	@JoinColumn(name="employeeId")
-	@JsonIgnoreProperties(value = {"employeeName", "designation", "department", "gender", "dob", "doj", "itemsPurchased", "loanCards"}, allowSetters=true)
+	@JsonIgnoreProperties(value = {"email", "password", "employeeName", "designation", "department", "gender", "dob", "doj", "itemsPurchased", "loanCards"}, allowSetters=true)
 	private Employee emp;
 	
 	@OneToOne
