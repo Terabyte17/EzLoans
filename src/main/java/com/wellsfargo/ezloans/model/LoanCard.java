@@ -1,5 +1,38 @@
 package com.wellsfargo.ezloans.model;
 
-public class LoanCard {
+import java.util.Set;
 
+import org.hibernate.annotations.UuidGenerator;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@Entity
+public class LoanCard {
+	
+	@Id
+	@UuidGenerator
+	private String loanId;
+	
+	@Column(nullable = false)
+	private Category loanType;
+	
+	@Column(nullable = false)
+	private Integer durationInYears;
+	
+	@OneToMany(mappedBy="loanCard", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<EmployeeLoan> employeesIssued;
+	
 }

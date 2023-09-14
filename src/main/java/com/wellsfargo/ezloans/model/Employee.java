@@ -49,4 +49,7 @@ public class Employee {
 	@OneToMany(mappedBy="emp", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<ItemPurchase> itemsPurchased;
 	
+	@OneToMany(mappedBy="emp", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<EmployeeLoan> loanCards;
+	
 }
