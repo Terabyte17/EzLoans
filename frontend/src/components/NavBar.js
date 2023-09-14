@@ -16,16 +16,16 @@ const NavBar = () => {
         <nav classNme='navbar'>
             <ul className="nav-list">
                 <li className="nav-item">
-                    <Link to="/register" className="nav-link">Register</Link>
+                    <Link to="/login" className="navlink">User Login</Link>
                     <span><FontAwesomeIcon icon="sign-in"></FontAwesomeIcon></span>
                 </li>
 
                 <li className="nav-item">
-                    <Link to="/login" className="nav-link">Login</Link>
+                    <Link to="/login-admin" className="navlink">Admin Login</Link>
                 </li>
 
                 <li className="nav-item-right">
-                    <Link to="/about-us" className="nav-link">About Us</Link>
+                    <Link to="/about-us" className="navlink">About Us</Link>
                 </li>
             </ul>
         </nav>

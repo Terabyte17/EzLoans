@@ -25,4 +25,27 @@
     color: green;
     margin-top: 10px;
   }
+
+  .login-container {
+    width: 20%;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 40px 20px;
+    border: 2px black;
+    border-radius: 5%;
+    background-color: #282c34;
+  }
+
+  .form-heading {
+    color: white;
+  }
+
+  .form-label {
+    text-align: left !important;
+    font-weight: bold;
+    color: white;
+  }
   

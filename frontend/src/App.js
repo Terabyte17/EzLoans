@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import Registration from './components/Registration';
 import Login from './components/Login';
+import RegisterUser from './components/RegisterUser';
 
 /*
 	React Router is a standard library for routing in React. 
@@ -40,14 +41,15 @@ function App() {
         <div style={{
           backgroundImage: "url(/images/back.jpg)",
           backgroundSize:'cover', backgroundRepeat:'no-repeat',
-          minHeight:'100vh', minWidth:'100vw'
+          minHeight:'80vh', minWidth:'100vw'
         }}>
           <Router>
             <NavBar/>
             <Routes>
-              <Route path='/register' element={<Registration/>}/>
-              <Route path='/login' element={<Login/>}/>
+              <Route path='/login' element={<Login role="User" />}/>
+              <Route path='/login-admin' element={<Login role="Admin"/>}/>
               <Route path='/about-us' element={<AboutUs />} />
+              <Route path='/register-user' element={<RegisterUser />} />
             </Routes>
           </Router>
         </div>
