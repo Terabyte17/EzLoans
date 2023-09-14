@@ -1,10 +1,5 @@
 package com.wellsfargo.ezloans.controller;
 
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Base64;
-
-import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -49,16 +44,9 @@ public class AdminController {
 		String password = a.getPassword();
 		
 		Admin admin = admin_service.loginAdmin(email).orElseThrow(() -> new ResourceNotFoundException("Invalid Credentials."));
+
 		
-		System.out.println(password);
-		Base64.Encoder encoder = Base64.getEncoder();  
-        String normalString = admin.getPassword();
-        String encodedString = encoder.encodeToString(normalString.getBytes(StandardCharsets.UTF_8));
-        String admin_password = encodedString;
-		System.out.println(admin.getPassword());
-		System.out.println(admin_password);
-		
-		if(email.equals(admin.getEmail()) && password.equals(admin_password)) {
+		if(email.equals(admin.getEmail()) && password.equals(admin.getPassword())) {
 			isLoggedIn = true;
 		}
 		

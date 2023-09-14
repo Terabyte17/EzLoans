@@ -1,6 +1,7 @@
 package com.wellsfargo.ezloans.model;
 
 import java.util.Date;
+import java.util.Set;
 
 import org.hibernate.annotations.UuidGenerator;
 
@@ -9,7 +10,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
 enum Gender {
 	Male,
@@ -26,10 +26,10 @@ public class Employee {
 	
 	@Id
 	@UuidGenerator
-	private String employee_id;
+	private String employeeId;
 	
 	@Column(nullable=false)
-	private String employee_name;
+	private String employeeName;
 	
 	@Column(nullable=false)
 	private String designation;
@@ -45,4 +45,8 @@ public class Employee {
 	
 	@Column(nullable=false)
 	private Date doj;
+	
+	@OneToMany(mappedBy="emp", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<ItemPurchase> itemsPurchased;
+	
 }
