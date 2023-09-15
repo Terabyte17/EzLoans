@@ -1,0 +1,29 @@
+.register-container {
+    width: 50%;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 40px 20px;
+    border: 2px black;
+    border-radius: 3%;
+    background-color: #282c34;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-fields {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 10px;
+}
+
+.submit-btn {
+    margin-top: 20px;
+    width: 50%;
+    margin: auto;
+}
