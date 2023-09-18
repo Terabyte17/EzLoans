@@ -21,7 +21,11 @@ const Login = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("Submit successful: ", credentials);
-        axios.post('http://localhost:8080/', { credentials}) // enter api endpoint here
+        axios.post('http://localhost:8088/ezloans/api/login', { credentials}, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }) // enter api endpoint here
             .then( res => {
                 if(res.login === 'true'){
                     window.location = '/dashboard'
