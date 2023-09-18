@@ -13,11 +13,6 @@ import lombok.Setter;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-enum Gender {
-	Male,
-	Female,
-	Other
-}
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -48,7 +43,8 @@ public class Employee {
 	@Column(nullable=false)
 	private Date doj;
 	
-	@Column(nullable=false)
+	//need to add unique constraint
+	@Column(nullable=false, unique=true)
 	private String email;
 	
 	@Column(nullable=false)
@@ -58,6 +54,20 @@ public class Employee {
 	
 	@OneToMany(mappedBy="emp", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<EmployeeLoan> loanCards;
+	
+	public Employee(String employeeId, String employeeName, String designation, String department,
+			Date dob, Date doj, String email, Set<ItemPurchase> itemsPurchased, Set<EmployeeLoan> loanCards) {
+		super();
+		this.employeeId = employeeId;
+		this.employeeName = employeeName;
+		this.designation = designation;
+		this.department = department;
+		this.dob = dob;
+		this.doj = doj;
+		this.email = email;
+		this.itemsPurchased = itemsPurchased;
+		this.loanCards = loanCards;
+	}
 	
 	public String getEmail() {
 		return email;
@@ -152,7 +162,5 @@ public class Employee {
 	public void setLoanCards(Set<EmployeeLoan> loanCards) {
 		this.loanCards = loanCards;
 	}
-	
-	
 	
 }
