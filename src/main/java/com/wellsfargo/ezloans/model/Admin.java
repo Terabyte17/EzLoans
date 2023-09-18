@@ -13,20 +13,29 @@ public class Admin {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(unique=true)
-	private String email;
+	@Column(unique=true, nullable=false)
+	private String username;
 	
+	@Column(nullable=false)
 	private String password;
+	
+	@Column(nullable=false)
+	private String role;
+	
+	@Column(nullable=false)
+	private boolean enabled;
 
 	public Admin() {
 		super();
 	}
-	
-	public Admin(Long id, String email, String password) {
+
+	public Admin(Long id, String username, String password, String role, boolean enabled) {
 		super();
 		this.id = id;
-		this.email = email;
+		this.username = username;
 		this.password = password;
+		this.role = role;
+		this.enabled = enabled;
 	}
 
 	public Long getId() {
@@ -36,13 +45,29 @@ public class Admin {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	public String getEmail() {
-		return email;
+	
+	public String getUsername() {
+		return username;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 
 	public String getPassword() {
@@ -51,10 +76,6 @@ public class Admin {
 
 	public void setPassword(String password) {
 		this.password = password;
-		Base64.Encoder encoder = Base64.getEncoder();  
-        String normalString = password;
-        String encodedString = encoder.encodeToString(normalString.getBytes(StandardCharsets.UTF_8));
-        this.password = encodedString;
 	}
 	
 	

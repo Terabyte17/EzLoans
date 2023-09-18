@@ -21,8 +21,8 @@ public class AdminService {
 		return admin_repo.save(a);
 	}
 	
-	public Optional<Admin> loginAdmin(String email) {
-		return admin_repo.findByEmail(email);
+	public Optional<Admin> loginAdmin(String username) {
+		return admin_repo.findByUsername(username);
 	}
 	
 }

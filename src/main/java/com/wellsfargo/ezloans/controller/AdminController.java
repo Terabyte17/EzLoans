@@ -40,13 +40,13 @@ public class AdminController {
 		
 		Boolean isLoggedIn = false;
 		
-		String email = a.getEmail();
+		String username = a.getUsername();
 		String password = a.getPassword();
 		
-		Admin admin = admin_service.loginAdmin(email).orElseThrow(() -> new ResourceNotFoundException("Invalid Credentials."));
+		Admin admin = admin_service.loginAdmin(username).orElseThrow(() -> new ResourceNotFoundException("Invalid Credentials."));
 
 		
-		if(email.equals(admin.getEmail()) && password.equals(admin.getPassword())) {
+		if(username.equals(admin.getUsername()) && password.equals(admin.getPassword())) {
 			isLoggedIn = true;
 		}
 		
