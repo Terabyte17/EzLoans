@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +17,7 @@ import com.wellsfargo.ezloans.model.Message;
 import com.wellsfargo.ezloans.service.LoanService;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api")
 public class LoanController {
 	

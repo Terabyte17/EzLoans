@@ -21,6 +21,9 @@ public class Admin {
 	
 	@Column(nullable=false)
 	private boolean enabled;
+	
+	@OneToOne(mappedBy="admin")
+	Employee emp;
 
 	public Admin() {
 		super();

@@ -26,6 +26,7 @@ public class EmployeeService {
 			emp_repo.save(e);
 		}
 		catch (Exception ex) {
+			System.out.println(ex.getMessage());
 			throw new Exception();
 		}
 		return;

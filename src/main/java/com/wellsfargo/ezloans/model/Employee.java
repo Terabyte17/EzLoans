@@ -47,13 +47,28 @@ public class Employee {
 	@Column(nullable=false, unique=true)
 	private String email;
 	
-	@Column(nullable=false)
-	private String password;
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name="id")
+	private Admin admin;
+	
 	@OneToMany(mappedBy="emp", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<ItemPurchase> itemsPurchased;
 	
 	@OneToMany(mappedBy="emp", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<EmployeeLoan> loanCards;
+	
+	public Employee(String employeeId, String employeeName, String designation, String department, Gender gender,
+			Date dob, Date doj, String email) {
+		super();
+		this.employeeId = employeeId;
+		this.employeeName = employeeName;
+		this.designation = designation;
+		this.department = department;
+		this.gender = gender;
+		this.dob = dob;
+		this.doj = doj;
+		this.email = email;
+	}
 	
 	public Employee(String employeeId, String employeeName, String designation, String department,
 			Date dob, Date doj, String email, Set<ItemPurchase> itemsPurchased, Set<EmployeeLoan> loanCards) {
@@ -75,20 +90,6 @@ public class Employee {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		
-		this.password = password;
-		Base64.Encoder encoder = Base64.getEncoder();  
-        String normalString = password;
-        String encodedString = encoder.encodeToString(normalString.getBytes(StandardCharsets.UTF_8));
-        this.password = encodedString;
-        
 	}
 
 	public String getEmployeeId() {

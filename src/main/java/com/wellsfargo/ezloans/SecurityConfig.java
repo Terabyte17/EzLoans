@@ -1,6 +1,7 @@
 package com.wellsfargo.ezloans;
 
 import org.springframework.context.annotation.*;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.web.builders.*;
 import org.springframework.security.config.annotation.web.configuration.*;
@@ -23,7 +24,8 @@ public class SecurityConfig {
 		http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/*").permitAll()
+            		.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                    .requestMatchers("/**").permitAll()
                     .anyRequest().authenticated())
             .httpBasic((basic) -> basic
                     .addObjectPostProcessor(new ObjectPostProcessor<BasicAuthenticationFilter>() {
