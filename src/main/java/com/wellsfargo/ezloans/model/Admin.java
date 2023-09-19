@@ -1,5 +1,7 @@
 package com.wellsfargo.ezloans.model;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -75,7 +77,8 @@ public class Admin {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		this.password = encoder.encode(password);
 	}
 	
 	

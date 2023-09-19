@@ -1,6 +1,7 @@
 package com.wellsfargo.ezloans.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -11,4 +12,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
 	
 	@Query("select new Employee(e.employeeId,e.employeeName,e.designation,e.department,e.gender,e.dob,e.doj,e.email) from Employee e")
 	List<Employee> findAll();
+	
+	Optional<Employee> findByAdminUsername(String username);
 }

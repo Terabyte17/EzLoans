@@ -1,6 +1,7 @@
 package com.wellsfargo.ezloans.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.hibernate.cache.spi.support.AbstractReadWriteAccess.Item;
@@ -14,8 +15,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wellsfargo.ezloans.exception.ResourceNotFoundException;
 import com.wellsfargo.ezloans.model.Employee;
 import com.wellsfargo.ezloans.model.EmployeeLoan;
 import com.wellsfargo.ezloans.model.ItemPurchase;
@@ -29,6 +32,18 @@ public class EmployeeController {
 	
 	@Autowired
 	private EmployeeService emp_service;
+	
+	@PostMapping("/login/user")
+	public String loginUser(@Validated @RequestBody Map<String, Object> payload) throws ResourceNotFoundException {
+		try {
+			String username = (String) payload.get("username");
+			String empId = emp_service.findByUsername(username);
+			return empId;
+		}
+		catch (Exception ex) {
+			return null;
+		}
+	}
 	
 	@PostMapping("/users")
 	public Message saveEmployee(@Validated @RequestBody Employee employee) {

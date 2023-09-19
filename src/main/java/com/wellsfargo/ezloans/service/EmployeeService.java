@@ -21,6 +21,13 @@ public class EmployeeService {
 	@Autowired
 	private EmployeeRepository emp_repo;
 	
+	public String findByUsername(String username) throws Exception {
+		Optional<Employee> emp = emp_repo.findByAdminUsername(username);
+		if(emp.isEmpty())
+			throw new Exception("Invalid Username.");
+		return emp.get().getEmployeeId();
+	}
+	
 	public void saveEmployee(Employee e) throws Exception {
 		try {
 			emp_repo.save(e);

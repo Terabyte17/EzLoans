@@ -1,5 +1,8 @@
 package com.wellsfargo.ezloans.controller;
 
+import java.util.Map;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +11,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wellsfargo.ezloans.exception.ResourceNotFoundException;
@@ -37,21 +41,19 @@ public class AdminController {
 		}
 	}
 	
-	@PostMapping("/login")
-	public Boolean loginAdmin(@Validated @RequestBody Admin a) throws ResourceNotFoundException {
-		
-		Boolean isLoggedIn = false;
-		
-		String username = a.getUsername();
-		String password = a.getPassword();
-		
-		Admin admin = admin_service.loginAdmin(username).orElseThrow(() -> new ResourceNotFoundException("Invalid Credentials."));
-
-		
-		if(username.equals(admin.getUsername()) && password.equals(admin.getPassword())) {
-			isLoggedIn = true;
+	@PostMapping("/login/admin")
+	public String loginAdmin(@Validated @RequestBody Map<String, Object> payload) throws ResourceNotFoundException {
+		try {
+			String username = (String) payload.get("username");
+			Optional<Admin> admin = admin_service.loginAdmin(username);
+			if (admin.isEmpty())
+				return null;
+			return "" + admin.get().getId();
 		}
-		
-		return isLoggedIn;
+		catch (Exception ex) {
+			return null;
+		}
 	}
+	
+	
 }
