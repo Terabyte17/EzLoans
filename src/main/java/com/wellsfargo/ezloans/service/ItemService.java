@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.wellsfargo.ezloans.model.Category;
 import com.wellsfargo.ezloans.model.Item;
 import com.wellsfargo.ezloans.repository.ItemRepository;
 
@@ -23,8 +24,15 @@ public class ItemService {
 		return;
 	}
 	
-	public List<Item> listAll() {
-		return itemRepo.findAll();
+	public List<Item> listAll(Optional<Boolean> issueStatus, Optional<Category> itemMake) {
+		if (issueStatus.isEmpty() && itemMake.isEmpty())
+			return itemRepo.findAll();
+		else if (issueStatus.isPresent() && itemMake.isPresent())
+			return itemRepo.findByIssueStatusAndItemCategory(issueStatus.get(), itemMake.get());
+		else if (issueStatus.isPresent())
+			return itemRepo.findByIssueStatus(issueStatus.get());
+		else
+			return itemRepo.findByItemCategory(itemMake.get());
 	}
 	
 	public void updateItem(Item i) throws Exception {

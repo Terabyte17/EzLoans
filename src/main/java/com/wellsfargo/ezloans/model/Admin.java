@@ -1,8 +1,5 @@
 package com.wellsfargo.ezloans.model;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
-
 import jakarta.persistence.*;
 
 @Entity

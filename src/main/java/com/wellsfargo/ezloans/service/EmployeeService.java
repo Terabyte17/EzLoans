@@ -1,13 +1,15 @@
 package com.wellsfargo.ezloans.service;
 
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wellsfargo.ezloans.model.Employee;
+import com.wellsfargo.ezloans.model.EmployeeLoan;
+import com.wellsfargo.ezloans.model.ItemPurchase;
 import com.wellsfargo.ezloans.repository.EmployeeRepository;
 
 import jakarta.transaction.Transactional;
@@ -51,4 +53,21 @@ public class EmployeeService {
 		return;
 	}
 	
+	public Set<ItemPurchase> listAllItems(String id) throws Exception {
+		Optional<Employee> emp = emp_repo.findById(id);
+		if(emp.isEmpty()) {
+			throw new Exception("Invalid Employee Id.");
+		}
+		Set<ItemPurchase> items = emp.get().getItemsPurchased();
+		return items;
+	}
+	
+	public Set<EmployeeLoan> listAllLoanCards(String id) throws Exception {
+		Optional<Employee> emp = emp_repo.findById(id);
+		if(emp.isEmpty()) {
+			throw new Exception("Invalid Employee Id.");
+		}
+		Set<EmployeeLoan> loanCards = emp.get().getLoanCards();
+		return loanCards;
+	}
 }

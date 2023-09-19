@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wellsfargo.ezloans.model.LoanCard;
+import com.wellsfargo.ezloans.model.Message;
 import com.wellsfargo.ezloans.service.LoanService;
 
 @RestController
@@ -30,5 +32,29 @@ public class LoanController {
 	@GetMapping("/loans")
 	public List<LoanCard> getAllLoans() {
 		return loanService.listAll();
+	}
+	
+	@PostMapping("/loans/update")
+	@ResponseBody
+	public Message updateLoan(@Validated @RequestBody LoanCard loan) {
+		try {
+			loanService.updateLoan(loan);
+			return new Message("Loan Card updated successfully.");
+		}
+		catch (Exception ex) {
+			return new Message("Invalid Loan Card ID. Updation failed.");
+		}
+	}
+	
+	@PostMapping("/loans/delete")
+	@ResponseBody
+	public Message deleteLoanCard(@Validated @RequestBody LoanCard loan) {
+		try {
+			loanService.deleteLoan(loan);
+			return new Message("Loan Card deleted successfully.");
+		}
+		catch (Exception ex) {
+			return new Message("Invalid Loan ID. Deletion failed.");
+		}
 	}
 }

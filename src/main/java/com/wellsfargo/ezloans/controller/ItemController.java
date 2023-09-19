@@ -1,6 +1,7 @@
 package com.wellsfargo.ezloans.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -8,9 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wellsfargo.ezloans.model.Category;
 import com.wellsfargo.ezloans.model.Item;
 import com.wellsfargo.ezloans.model.Message;
 import com.wellsfargo.ezloans.service.ItemService;
@@ -32,8 +35,8 @@ public class ItemController {
 	
 	@Validated
 	@GetMapping("/items")
-	public List<Item> getAllEmployee() {
-		return itemService.listAll();
+	public List<Item> getAllEmployee(@RequestParam Optional<Boolean> issue_status, @RequestParam Optional<Category> item_category) {
+		return itemService.listAll(issue_status, item_category);
 	}
 	
 	@PostMapping("/items/update")

@@ -10,11 +10,7 @@ import lombok.Setter;
 
 // need to make these human readable either here or in js frontend
 
-enum Category {
-	Furniture,
-	SportsEquipments,
-	ElectronicGadgets
-};
+
 
 @NoArgsConstructor
 @AllArgsConstructor
