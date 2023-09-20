@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import Registration from './components/Registration';
 import Login from './components/Login';
@@ -27,9 +27,20 @@ import RegisterUser from './components/RegisterUser';
 import{library} from '@fortawesome/fontawesome-svg-core';
 import{faSignIn, faCameraRetro} from '@fortawesome/free-solid-svg-icons';
 import AboutUs from './components/AboutUs';
+import { useEffect, useState } from 'react';
 library.add(faSignIn,faCameraRetro);
 
 function App() {
+
+  const [userId,setUserId] = useState();
+
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem('userId');
+    if(loggedInUser) {
+      setUserId(loggedInUser);
+    }
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
@@ -46,8 +57,8 @@ function App() {
           <Router>
             <NavBar/>
             <Routes>
-              <Route path='/login' element={<Login role="User" />}/>
-              <Route path='/login-admin' element={<Login role="Admin"/>}/>
+              <Route path='/login' element = { userId ? <Navigate replace to={"/dashboard"} /> : <Login role="user" />} />
+              <Route path='/login-admin' element={ userId ? <Navigate replace to={"/dashboard"} /> : <Login role="Admin"/>}/>
               <Route path='/about-us' element={<AboutUs />} />
               <Route path='/register-user' element={<RegisterUser />} />
             </Routes>
