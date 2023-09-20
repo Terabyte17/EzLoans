@@ -6,6 +6,8 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.wellsfargo.ezloans.exception.InvalidRequestException;
+import com.wellsfargo.ezloans.exception.ResourceNotFoundException;
 import com.wellsfargo.ezloans.model.Employee;
 import com.wellsfargo.ezloans.model.Item;
 import com.wellsfargo.ezloans.model.ItemPurchase;
@@ -28,27 +30,27 @@ public class ItemPurchaseService {
 	@Autowired
 	private EmployeeRepository empRepo;
 	
-	public ItemPurchase itemPurchased(ItemPurchase ip) throws Exception {
+	public void itemPurchased(ItemPurchase ip) throws Exception {
 		
-		//check issue status of item
 		Optional<Item> item = itemRepo.findById(ip.getItem().getItemId());
 		Optional<Employee> emp = empRepo.findById(ip.getEmp().getEmployeeId());
 		
+		System.out.println(item.isPresent());
+		System.out.println(emp.isPresent());
 		if(!item.isPresent() || !emp.isPresent()) {
-			// specify exception type
-			throw new Exception();
+			throw new ResourceNotFoundException("Invalid Item ID or Employee ID.");
 		}
 		
 		if(item.get().getIssueStatus() == true) {
-			// specify exception type
-			throw new Exception();
+			throw new InvalidRequestException("Item has already been issued. Not in stock.");
 		}
 		
 		item.get().setIssueStatus(true);
 		ip.setEmp(emp.get());
 		ip.setItem(item.get());
 		
-		return itemPurchaseRepo.save(ip);
+		itemPurchaseRepo.save(ip);
+		return;
 	}
 	
 	public Set<ItemPurchase> viewAllItemsPurchased(String empId) {

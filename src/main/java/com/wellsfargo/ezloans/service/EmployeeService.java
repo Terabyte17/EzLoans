@@ -29,15 +29,7 @@ public class EmployeeService {
 	}
 	
 	public void saveEmployee(Employee e) throws Exception {
-		try {
-			emp_repo.save(e);
-		}
-		catch (Exception ex) {
-			System.out.println("yesss");
-			System.out.println(ex.getMessage());
-			throw new Exception();
-		}
-		return;
+		emp_repo.save(e);
 	}
 	
 	public List<Employee> listAll() {

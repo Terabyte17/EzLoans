@@ -37,22 +37,22 @@ const Login = (props) => {
                     'Content-Type': 'application/json'
                 }
             }, {
-                    auth: {
-                        username: credentials.username,
-                        password: credentials.password
-                    }
+                auth: {
+                    username: credentials.username,
+                    password: credentials.password
                 }
-            ).then( res => {
-                if(res == null){
+            }
+            ).then(res => {
+                if (res == null) {
                     onLoginError();
-                } else {                    
+                } else {
                     localStorage.setItem('userId', res);
-                    navigate('/dashboard', {replace: true});
+                    navigate('/dashboard', { replace: true });
                 }
             })
-        } catch(error) {
+        } catch (error) {
             console.log("Auth error - ", error);
-        } 
+        }
 
         // const item_detail = {
         //     "itemDesc": "4 Seater dining table",
@@ -88,7 +88,7 @@ const Login = (props) => {
 
     return (
         <div>
-            { loginUnsuccessful && <h3>Error in Logging in</h3>}
+            {loginUnsuccessful && <h3>Error in Logging in</h3>}
             <div className='login-container'>
                 <h2 className='form-heading'>{props.role} Login</h2>
                 <form onSubmit={handleSubmit}>
