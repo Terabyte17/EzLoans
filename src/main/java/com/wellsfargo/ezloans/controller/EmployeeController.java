@@ -52,6 +52,7 @@ public class EmployeeController {
 			return new Message("Employee added successfully.");
 		}
 		catch (Exception ex) {
+			System.out.println(ex.getMessage());
 			return new Message("User with same Email ID exists.");
 		}
 	}
