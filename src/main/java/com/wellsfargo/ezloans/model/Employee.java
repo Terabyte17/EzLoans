@@ -71,6 +71,21 @@ public class Employee {
 	public Employee() {
 		super();
 	}
+	
+	
+	
+	public Employee(String employeeId, String employeeName, String designation, String department, Gender gender,
+			Date dob, Date doj, String email) {
+		super();
+		this.employeeId = employeeId;
+		this.employeeName = employeeName;
+		this.designation = designation;
+		this.department = department;
+		this.gender = gender;
+		this.dob = dob;
+		this.doj = doj;
+		this.email = email;
+	}
 
 	public Employee(String employeeId, String employeeName, String designation, String department, Gender gender,
 			Date dob, Date doj, String email, Admin admin) {
