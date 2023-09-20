@@ -28,6 +28,7 @@ import{library} from '@fortawesome/fontawesome-svg-core';
 import{faSignIn, faCameraRetro} from '@fortawesome/free-solid-svg-icons';
 import AboutUs from './components/AboutUs';
 import { useEffect, useState } from 'react';
+import AdminDashboard from './components/AdminDashboard';
 library.add(faSignIn,faCameraRetro);
 
 function App() {
@@ -58,7 +59,8 @@ function App() {
             <NavBar/>
             <Routes>
               <Route path='/login' element = { userId ? <Navigate replace to={"/dashboard"} /> : <Login role="user" />} />
-              <Route path='/login-admin' element={ userId ? <Navigate replace to={"/dashboard"} /> : <Login role="Admin"/>}/>
+              <Route path='/login-admin' element={ userId ? <Navigate replace to={"/dashboard"} /> : <Login role="admin"/>}/>
+              <Route path='/dashboard' element={ userId ? <AdminDashboard /> : <Navigate replace to={"/login-admin"} /> } />
               <Route path='/about-us' element={<AboutUs />} />
               <Route path='/register-user' element={<RegisterUser />} />
             </Routes>
