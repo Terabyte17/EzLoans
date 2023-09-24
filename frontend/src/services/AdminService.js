@@ -1,13 +1,23 @@
 import axios from "axios";
 
-const PRODUCTS_REST_API_URL='http://localhost:8085/ims/api/products';
+const CUSTOMERDATA_REST_API_URL='http://localhost:8088/ezloans/api/users';
+const LOANDATA_REST_API_URL = 'http://localhost:8088/ezloans/api/loans';
+const ITEMDATA_REST_API_URL = 'http://localhost:8088/ezloans/api/items';
 
-class ProductService{
-    static getProducts(){
-        return axios.get(PRODUCTS_REST_API_URL);
+class AdminService{
+    static getCustomerData(){
+        return axios.get(CUSTOMERDATA_REST_API_URL);
     }
 
-    static createProduct(product){
+    static getLoanCard(){
+        return axios.get(LOANDATA_REST_API_URL);
+    }
+
+    static getItemData(){
+        return axios.get(ITEMDATA_REST_API_URL);
+    }
+
+    /*static createProduct(product){
         return axios.post(PRODUCTS_REST_API_URL,product);
     }
 
@@ -22,7 +32,7 @@ class ProductService{
     
     static deleteProduct(productId){
         return axios.delete(PRODUCTS_REST_API_URL+'/'+productId,product);
-    }
+    } */
 }
 
-export default ProductService;
+export default AdminService;
