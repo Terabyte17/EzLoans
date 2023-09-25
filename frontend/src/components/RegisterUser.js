@@ -1,12 +1,36 @@
-import React from 'react';
+import { React, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../styles/RegisterUser.css';
 
 const RegisterUser = (props) => {
+
+    const [formData,setFormData] = useState({
+        employeeId: props?.data?.employeeId,
+        employeeName: props?.data?.employeeName,
+        designation: props?.data?.designation,
+        department: props?.data?.department,
+        gender: props?.data?.gender,
+        dob: props?.data?.dob,
+        doj: props?.data?.doj,
+    })
+
+    const onChangeHandler = (event) => {
+        console.log("Event is: ", event)
+        const { name, value } = event
+        setFormData((prev) => {
+            return { ...prev, [name]: value }
+        })
+    }
+
+    const handleSubmit = (e,action) => {
+        e.preventDefault();
+        console.log("form data", formData);
+    }
+
     return (
         <div className='register-container'>
             <h2 className='form-heading'>Register User {props.action}</h2>
-            <form className='register-form'>
+            <form className='register-form' onSubmit={() => handleSubmit(props.action)}>
                 <div className='form-fields'>
                     <div>
                         <div className="mb-3">
@@ -16,6 +40,7 @@ const RegisterUser = (props) => {
                             className="form-control"
                             placeholder="Enter Name"
                             value={props?.data?.employeeName}
+                            onChange={(e) => onChangeHandler(e.target)}
                         />
                         </div>
                         <div className="mb-3">
@@ -24,12 +49,14 @@ const RegisterUser = (props) => {
                             type="text"
                             className="form-control"
                             placeholder="Enter Designation"
-                            value={props?.data?.designation}
+                            value={formData.designation}
+                            onChange={(e) => onChangeHandler(e.target)}
                         />
                         </div>
                         <div className="mb-3">
                         <label className='form-label'>Department</label>
-                        <select className="form-control" value={props?.data?.department}>
+                        <select className="form-control" value={formData.department}
+                            onChange={(e) => onChangeHandler(e.target)}>
                             <option value="Sales">Sales</option>
                             <option value="Marketing">Marketing</option>
                             <option value="Engineering">Engineering</option>
@@ -37,7 +64,8 @@ const RegisterUser = (props) => {
                         </div>
                         <div className="mb-3">
                         <label className='form-label'>Gender</label>
-                        <select className="form-control" value={props?.data?.gender}>
+                        <select className="form-control" value={formData.gender}
+                            onChange={(e) => onChangeHandler(e.target)}>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
                             <option value="PNTS">Prefer Not To Say</option>
@@ -51,7 +79,8 @@ const RegisterUser = (props) => {
                             type="date"
                             className="form-control"
                             placeholder="Enter Date of Birth"
-                            value={props?.data?.dob}
+                            value={formData.dob}
+                            onChange={(e) => onChangeHandler(e.target)}
                         />
                         </div>
                         <div className="mb-3">
@@ -60,7 +89,8 @@ const RegisterUser = (props) => {
                             type="date"
                             className="form-control"
                             placeholder="Enter Date of Joining"
-                            value={props?.data?.doj}
+                            value={formData.doj}
+                            onChange={(e) => onChangeHandler(e.target)}
                         />
                         </div>
                         <div className="mb-3">
@@ -69,7 +99,8 @@ const RegisterUser = (props) => {
                             type="email"
                             className="form-control"
                             placeholder="Enter email"
-                            value={props?.data?.email}
+                            value={formData.email}
+                            onChange={(e) => onChangeHandler(e.target)}
                         />
                         </div>
                         

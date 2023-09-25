@@ -24,11 +24,16 @@ class AdminService{
     static getProductById(){
         return axios.get(PRODUCTS_REST_API_URL+'/'+productId);
     }
+    */
 
-    static updateProduct(product,productId){
-        return axios.put(PRODUCTS_REST_API_URL+'/'+productId,product);
+    static createCustomerData(customer){
+        return axios.post(CUSTOMERDATA_REST_API_URL,customer);
     }
 
+    static updateCustomerData(customer, customerId){
+        return axios.post(CUSTOMERDATA_REST_API_URL+'/'+customerId,customer);
+    }
+    /*
     
     static deleteProduct(productId){
         return axios.delete(PRODUCTS_REST_API_URL+'/'+productId,product);

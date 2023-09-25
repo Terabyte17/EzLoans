@@ -27,15 +27,7 @@ import RegisterUser from './RegisterUser';
 function CustomerData() {
     /*const history = useNavigate();
     // state Management using useState() Hook */
-    const [customerData,setCustomerData] =useState([{
-        employeeId: '1',
-        employeeName: 'Sanchit',
-        designation: 'Manager',
-        department: 'Marketing',
-        email: 'san@gmail.com'
-    }, {
-        employeeId: '2'
-    }]);
+    const [customerData,setCustomerData] =useState([]);
     const [tableData, setTableData] = useState([]);
     const [customerForm, setCustomerForm] = useState();
     
@@ -53,18 +45,30 @@ function CustomerData() {
 
     }
 
-    const fetchCustomerData = () => {
+    async function fetchCustomerData() {
         // uncomment this later
-        // AdminService.getCustomerData().then((response) => {
-        //     setCustomerData(response.data);
-        // }).then(() => populateTableFields());
+        const data = await AdminService.getCustomerData()
+        //     // console.log(response.data);
+
+        //     console.log("customerdata - ",customerData);
+        // })
+        console.log(data.data);
+        setCustomerData(data.data);
         populateTableFields();
+        // .catch((error) => {
+        //     console.error('Error fetching data:', error.data);
+        //     // Handle the error gracefully, e.g., display a message to the user
+        // }).then(() => populateTableFields());
+        // populateTableFields();
     } 
 
+
     const populateTableFields = () => {
-        if(customerData.length == 0){
-            setTableData([]);
-        } else {
+        console.log("populate is being run", )
+        // if(customerData.length === 0){
+        //     console.log("customer data length", customerData);
+        //     setTableData([]);
+        // } else {
             var tableFields = [];
             customerData.map(
                 (data,index) => tableFields.push(
@@ -83,7 +87,7 @@ function CustomerData() {
             )
             setTableData(tableFields);
             console.log("table fields" , tableFields);
-        }
+        // }
     }
 
    const handleAddCustomer = () => {
