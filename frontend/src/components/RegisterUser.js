@@ -5,7 +5,7 @@ import '../styles/RegisterUser.css';
 const RegisterUser = (props) => {
     return (
         <div className='register-container'>
-            <h2 className='form-heading'>Register User</h2>
+            <h2 className='form-heading'>Register User {props.action}</h2>
             <form className='register-form'>
                 <div className='form-fields'>
                     <div>
@@ -15,6 +15,7 @@ const RegisterUser = (props) => {
                             type="text"
                             className="form-control"
                             placeholder="Enter Name"
+                            value={props?.data?.employeeName}
                         />
                         </div>
                         <div className="mb-3">
@@ -23,11 +24,12 @@ const RegisterUser = (props) => {
                             type="text"
                             className="form-control"
                             placeholder="Enter Designation"
+                            value={props?.data?.designation}
                         />
                         </div>
                         <div className="mb-3">
                         <label className='form-label'>Department</label>
-                        <select className="form-control">
+                        <select className="form-control" value={props?.data?.department}>
                             <option value="Sales">Sales</option>
                             <option value="Marketing">Marketing</option>
                             <option value="Engineering">Engineering</option>
@@ -35,7 +37,7 @@ const RegisterUser = (props) => {
                         </div>
                         <div className="mb-3">
                         <label className='form-label'>Gender</label>
-                        <select className="form-control">
+                        <select className="form-control" value={props?.data?.gender}>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
                             <option value="PNTS">Prefer Not To Say</option>
@@ -49,6 +51,7 @@ const RegisterUser = (props) => {
                             type="date"
                             className="form-control"
                             placeholder="Enter Date of Birth"
+                            value={props?.data?.dob}
                         />
                         </div>
                         <div className="mb-3">
@@ -57,6 +60,7 @@ const RegisterUser = (props) => {
                             type="date"
                             className="form-control"
                             placeholder="Enter Date of Joining"
+                            value={props?.data?.doj}
                         />
                         </div>
                         <div className="mb-3">
@@ -65,6 +69,7 @@ const RegisterUser = (props) => {
                             type="email"
                             className="form-control"
                             placeholder="Enter email"
+                            value={props?.data?.email}
                         />
                         </div>
                         
