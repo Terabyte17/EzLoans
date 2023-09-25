@@ -21,11 +21,11 @@ import com.wellsfargo.ezloans.service.AdminService;
 public class AdminController {
 	
 	@Autowired
-	private AdminService admin_service;
+	private AdminService adminService;
 	
 	public ResponseEntity<String> createAdmin(@Validated @RequestBody Admin a) {
 		try {
-			Admin registeredAdmin = admin_service.registerAdmin(a);
+			Admin registeredAdmin = adminService.registerAdmin(a);
 			if(registeredAdmin!=null) {
 				return ResponseEntity.ok("Registration Successful!");
 			}
@@ -42,7 +42,7 @@ public class AdminController {
 	public String loginAdmin(@Validated @RequestBody Map<String, Object> payload) throws ResourceNotFoundException {
 		try {
 			String username = (String) payload.get("username");
-			Optional<Admin> admin = admin_service.loginAdmin(username);
+			Optional<Admin> admin = adminService.loginAdmin(username);
 			if (admin.isEmpty())
 				return null;
 			return "" + admin.get().getId();
