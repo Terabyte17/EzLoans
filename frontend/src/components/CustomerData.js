@@ -39,24 +39,11 @@ function CustomerData() {
         populateTableFields();
     }, [customerData]);
 
-    function handleEditCustomer(key) {
-        console.log("key is: ", key);
-        setCustomerForm(<RegisterUser data={customerData[key]} action="edit" />);
-    }
-
-    const handleDeleteCustomer = (key) => {
-        console.log("key is : ", key);
-        AdminService.deleteCustomerData(customerData[key]).then((response) => {
-            console.log("Delete status: ", response);
-        }).catch((error) => {
-            console.log("Delete failed: ", error);
-        })
-
-    }
-
     const fetchCustomerData = () => {
         AdminService.getCustomerData().then((response) => {
             setCustomerData(response.data);
+        }).catch((error) => {
+            console.log(error);
         })
 
 
@@ -76,6 +63,26 @@ function CustomerData() {
         // populateTableFields();
     }
 
+    const handleCloseForm = () => {
+        setCustomerForm();
+        fetchCustomerData();
+    }
+
+    function handleEditCustomer(key) {
+        console.log("key is: ", key);
+        setCustomerForm(<RegisterUser data={customerData[key]} action="edit" handleCloseForm={handleCloseForm} />);
+    }
+
+    const handleDeleteCustomer = (key) => {
+        console.log("key is : ", key);
+        AdminService.deleteCustomerData(customerData[key]).then((response) => {
+            console.log("Delete status: ", response);
+        }).catch((error) => {
+            console.log("Delete failed: ", error);
+        })
+        fetchCustomerData();
+
+    }
 
     const populateTableFields = () => {
         console.log("populate is being run",)
@@ -111,8 +118,9 @@ function CustomerData() {
 
     const handleAddCustomer = () => {
         // history('/addProduct/_add');
-        setCustomerForm(<RegisterUser action="add" />);
+        setCustomerForm(<RegisterUser action="add" handleCloseForm={handleCloseForm} />);
     }
+
 
     /*
    

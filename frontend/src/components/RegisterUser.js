@@ -2,8 +2,11 @@ import { React, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../styles/RegisterUser.css';
 import AdminService from '../services/AdminService';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterUser = (props) => {
+
+    const navigate = useNavigate();
 
 
     const [formData, setFormData] = useState({
@@ -12,8 +15,8 @@ const RegisterUser = (props) => {
         designation: props?.data?.designation,
         department: props.data ? props?.data?.department : "Sales",
         gender: props.data ? props?.data?.gender : "Male",
-        dob: props?.data?.dob,
-        doj: props?.data?.doj,
+        dob: props?.data ? props?.data?.dob : new Date().toISOString().substring(0, 10),
+        doj: props?.data ? props?.data?.doj : new Date().toISOString().substring(0, 10),
         email: props?.data?.email
     })
 
@@ -30,12 +33,17 @@ const RegisterUser = (props) => {
         if (props.action == "add") {
             AdminService.createCustomerData(formData).then((response) => {
                 console.log("New customer response: ", response);
+                props.handleCloseForm();
+                console.log("Form closed");
+
             }).catch((error) => {
                 console.log("Incomplete data");
             })
         } else {
             AdminService.updateCustomerData(formData).then((response) => {
                 console.log("Customer update: ", response);
+                props.handleCloseForm();
+                console.log("Form closed");
             }).catch((error) => {
                 console.log("Update issue: ", error);
             })
