@@ -86,6 +86,9 @@ function CustomerData() {
             var tableFields = [];
             customerData.map(
                 (data, index) => {
+                    var dob = new Date(data.dob), doj = new Date(data.doj);
+                    var string_dob = dob.toISOString().substring(0, 10);
+                    var string_doj = doj.toISOString().substring(0, 10);
                     tableFields.push(
                         <tr key={data.employeeId}>
                             <td> {data.employeeId} </td>
@@ -93,8 +96,8 @@ function CustomerData() {
                             <td> {data.designation} </td>
                             <td> {data.department} </td>
                             <td> {data.gender} </td>
-                            <td> {Date(data.dob * 1000).substring(0, 9)} </td>
-                            <td> {data.doj} </td>
+                            <td> {string_dob} </td>
+                            <td> {string_doj} </td>
                             <td> {data.email} </td>
                             <td><button onClick={() => handleEditCustomer(index)}>Edit</button></td>
                             <td><button onClick={() => handleDeleteCustomer(index)}>Delete</button></td>
