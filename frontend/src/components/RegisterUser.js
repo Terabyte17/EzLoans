@@ -1,4 +1,4 @@
-/*import { React, useState } from 'react';
+import { React, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../styles/RegisterUser.css';
 import AdminService from '../services/AdminService';
@@ -149,10 +149,10 @@ const RegisterUser = (props) => {
     )
 }
 
-export default RegisterUser*/
+export default RegisterUser
 
 
-import React, { useState } from 'react';
+/*import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../styles/RegisterUser.css';
 import AdminService from '../services/AdminService';
@@ -318,3 +318,4 @@ const RegisterUser = (props) => {
 }
 
 export default RegisterUser;
+*/
