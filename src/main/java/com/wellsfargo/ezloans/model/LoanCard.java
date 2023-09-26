@@ -1,5 +1,6 @@
 package com.wellsfargo.ezloans.model;
 
+import java.util.Date;
 import java.util.Set;
 
 import org.hibernate.annotations.UuidGenerator;
@@ -31,6 +32,9 @@ public class LoanCard {
 	
 	@Column(nullable = false)
 	private Integer durationInYears;
+	
+	@Column(nullable = false)
+	private Date issueDate;
 	
 	@OneToMany(mappedBy="loanCard", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<EmployeeLoan> employeesIssued;
@@ -66,6 +70,17 @@ public class LoanCard {
 	public void setEmployeesIssued(Set<EmployeeLoan> employeesIssued) {
 		this.employeesIssued = employeesIssued;
 	}
+
+	public Date getIssueDate() {
+		return issueDate;
+	}
+
+	public void setIssueDate(Date issueDate) {
+		this.issueDate = issueDate;
+	}
 	
+	public void removeEmployee(EmployeeLoan el) {
+		this.employeesIssued.remove(el);
+	}
 	
 }

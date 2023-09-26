@@ -10,8 +10,6 @@ import lombok.Setter;
 
 // need to make these human readable either here or in js frontend
 
-
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -30,6 +28,9 @@ public class Item {
 	
 	@Column(nullable = false)
 	private String itemMake;
+	
+	@Column(nullable = false)
+	private Integer itemValuation;
 	
 	@Column(nullable = false)
 	private Category itemCategory;
@@ -84,7 +85,13 @@ public class Item {
 	public void setItemPurchased(ItemPurchase itemPurchased) {
 		this.itemPurchased = itemPurchased;
 	}
-	
-	
+
+	public Integer getItemValuation() {
+		return itemValuation;
+	}
+
+	public void setItemValuation(Integer itemValuation) {
+		this.itemValuation = itemValuation;
+	}
 	
 }

@@ -9,10 +9,14 @@ import org.springframework.stereotype.Service;
 
 import com.wellsfargo.ezloans.model.Employee;
 import com.wellsfargo.ezloans.model.EmployeeLoan;
+import com.wellsfargo.ezloans.model.Item;
 import com.wellsfargo.ezloans.model.ItemPurchase;
+import com.wellsfargo.ezloans.model.LoanCard;
 import com.wellsfargo.ezloans.repository.EmployeeLoanRepository;
 import com.wellsfargo.ezloans.repository.EmployeeRepository;
 import com.wellsfargo.ezloans.repository.ItemPurchaseRepository;
+import com.wellsfargo.ezloans.repository.ItemRepository;
+import com.wellsfargo.ezloans.repository.LoanRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -28,6 +32,12 @@ public class EmployeeService {
 	
 	@Autowired
 	private EmployeeLoanRepository empLoanRepo;
+	
+	@Autowired
+	private ItemRepository itemRepo;
+	
+	@Autowired
+	private LoanRepository loanRepo;
 	
 	public String findByUsername(String username) throws Exception {
 		Optional<Employee> emp = emp_repo.findByAdminUsername(username);
@@ -59,20 +69,27 @@ public class EmployeeService {
 			throw new Exception("Invalid Employee Id.");
 		}
 		
+		Set<ItemPurchase> itemsPurchased = emp.get().getItemsPurchased();
+		emp.get().setItemsPurchased(null);
+		if (!itemsPurchased.isEmpty()) {
+			for (ItemPurchase ip:itemsPurchased) {
+				Item item = ip.getItem();
+				item.setItemPurchased(null);
+				itemRepo.save(item);
+				itemPurchaseRepo.delete(ip);
+			}
+		}
 		
-		
-//		Set<ItemPurchase> itemsPurchased = emp.get().getItemsPurchased();
-//		if (!itemsPurchased.isEmpty()) {
-//			for(ItemPurchase itemPurchase:itemsPurchased)
-//				itemPurchaseRepo.deleteById(itemPurchase.getIssueId());
-//		}
-//		
-//		
-//		Set<EmployeeLoan> empLoans = emp.get().getLoanCards();
-//		if(!empLoans.isEmpty()) {
-//			for(EmployeeLoan empLoan:empLoans)
-//				empLoanRepo.deleteById(empLoan.getLoanIssueId());
-//		}
+		Set<EmployeeLoan> empLoans = emp.get().getLoanCards();
+		emp.get().setLoanCards(null);
+		if (!empLoans.isEmpty()) {
+			for (EmployeeLoan el:empLoans) {
+				LoanCard lc = el.getLoanCard();
+				lc.removeEmployee(el);
+				loanRepo.save(lc);
+				empLoanRepo.delete(el);
+			}
+		}
 		
 		emp_repo.deleteById(e.getEmployeeId());
 		return;
