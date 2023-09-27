@@ -1,68 +1,89 @@
-/* NavBar.css */
-/* Common styles for all screen sizes*/
 nav{
-    background-color: #01070e;
+  background-color: #282c34;
+  padding: 7px;
+  height: 60px;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 .navbar {
-    /* backgroundColor: #01070e; */
-    color: rgb(245, 235, 235);
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-    border: 2px solid rgb(247, 20, 20);
-  }
+  display: flex;  
   
+}
+
+.nav-list {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-item {
+  margin-left: 20px;
+}
+
+.nav-item-right {
+  margin-left: auto;
+}
+
+.navlink {
+  text-decoration: none;
+  color: #1a1a1b;
+  font-weight: 600;
+  padding: 10px 15px;
+  font-weight: bold;
+  transition: color 0.2s ease-in-out;
+}
+
+.navlink:hover {
+  color: #007bff;
+}
+
+.nav-button {
+  background: #a1a4a5;
+  border: none;
+  padding: 10px 20px;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background .3s;
+  text-align: center;
+  display: inline-block;
+}
+
+.nav-button:hover,
+.nav-button:focus {
+  background: #0056b3;
+  transition: background .3s;
+}
+
+.nav-button:visited {
+  color: #fff;
+}
+
+.menu-icon {
+  cursor: pointer;
+  display: none;
+}
+
+.menu-icon span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: white;
+  margin: 4px 0;
+}
+
+@media screen and (max-width: 767px) {
   .nav-list {
-    display: flex;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .nav-item {
-    margin-right: 20px;
+      display: none;
   }
 
-  .nav-item-right {
-    margin-right: 20px;
-    margin-left: auto;
-  }
-  
-  .navlink {
-    text-decoration: none;
-    padding: 15px 20px;
-    display: inline-block;
-    color: rgb(218, 213, 213);
-    font-weight: bold;
-    transition: color 0.3s;
-  }
-  
-  .nav-link:hover {
-    color: #0056b3;
-  }
-
-  /* Media queries for responsiveness */
-@media (max-width: 767px) {
-  /* Styles for mobile devices */
-  .nav-item {
-    margin-right: 10px;
-  }
-  
   .menu-icon {
-    display: inline-block;
-    margin-right: 10px;
-    cursor: pointer;
+      display: block;
   }
 
-  .menu-icon span {
-    display: block;
-    width: 25px;
-    height: 3px;
-    background-color: white;
-    margin: 6px 0;
+  .nav-item {
+      margin: 15px 0;
   }
-
-  .nav-link {
-    padding: 10px;
-  }
-} 
+}

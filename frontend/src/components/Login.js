@@ -86,12 +86,50 @@ const Login = (props) => {
     }
 
 
+    // return (
+    //     <div>
+    //         { loginUnsuccessful && <h3>Error in Logging in</h3>}
+    //         <div className='login-container'>
+    //             <h2 className='form-heading'>{props.role} Login</h2>
+    //             <form onSubmit={handleSubmit}>
+    //                 <div className="mb-3">
+    //                     <label className='form-label'>Username</label>
+    //                     <input
+    //                         type="text"
+    //                         className="form-control"
+    //                         placeholder="Enter username"
+    //                         name="username"
+    //                         value={credentials.username}
+    //                         onChange={(e) => onChangeHandler(e.target)}
+    //                     />
+    //                 </div>
+    //                 <div className="mb-3">
+    //                     <label className='form-label'>Password</label>
+    //                     <input
+    //                         type="password"
+    //                         className="form-control"
+    //                         placeholder="Enter password"
+    //                         name="password"
+    //                         value={credentials.password}
+    //                         onChange={(e) => onChangeHandler(e.target)}
+    //                     />
+    //                 </div>
+    //                 <div className="d-grid">
+    //                     <button type="submit" className="btn btn-primary">
+    //                         Submit
+    //                     </button>
+    //                 </div>
+    //             </form>
+    //         </div>
+    //     </div>
+    // )
+
     return (
-        <div>
-            { loginUnsuccessful && <h3>Error in Logging in</h3>}
+        <div className='login-page'>
+            { loginUnsuccessful && <h3 className="error-message">Error in Logging in</h3>}
             <div className='login-container'>
                 <h2 className='form-heading'>{props.role} Login</h2>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} className='login-form'>
                     <div className="mb-3">
                         <label className='form-label'>Username</label>
                         <input
@@ -101,6 +139,7 @@ const Login = (props) => {
                             name="username"
                             value={credentials.username}
                             onChange={(e) => onChangeHandler(e.target)}
+                            required
                         />
                     </div>
                     <div className="mb-3">
@@ -112,6 +151,7 @@ const Login = (props) => {
                             name="password"
                             value={credentials.password}
                             onChange={(e) => onChangeHandler(e.target)}
+                            required
                         />
                     </div>
                     <div className="d-grid">
@@ -123,6 +163,7 @@ const Login = (props) => {
             </div>
         </div>
     )
+
 }
 
 export default Login

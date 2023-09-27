@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+import logo from './logo.png';
 import './App.css';
 
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
@@ -46,7 +46,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" /> 
-        <h1>Loan Management  System</h1>
+        <h1>EzLoans</h1>
       </header>
 
       <section>

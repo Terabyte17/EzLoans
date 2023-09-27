@@ -3,18 +3,19 @@
 }
 
 .App-logo {
-  height: 10vmin;
+  height: 8vmin;
   pointer-events: none;
+  background-color: transparent;
 }
 
-@media (prefers-reduced-motion: no-preference) {
+/* @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
-}
+} */
 
 .App-header {
-  background-color: #282c34;
+  background-color: #17191d;
   min-height: 10vh;
   display: flex;
   /*flex-direction: column;*/
@@ -38,10 +39,10 @@
 }
 
 .footer{
-  background-color: black;
-  color: yellowgreen;
+  background-color: #282c34;
+  color: rgb(249, 250, 246);
   text-align: centre;
-  height: 10vh;
+  height: 5vh;
   font-weight: bold;
-  border-top: 2px solid yellow;
+  border-top: 2px;
 }
