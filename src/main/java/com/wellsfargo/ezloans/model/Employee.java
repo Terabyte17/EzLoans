@@ -1,20 +1,17 @@
 package com.wellsfargo.ezloans.model;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
 import java.util.Date;
 import java.util.Set;
 
 import org.hibernate.annotations.UuidGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 
-
-@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
@@ -31,7 +28,7 @@ public class Employee {
 	@Column(nullable=false)
 	private String designation;
 	
-	//@Column(name="department", nullable=false)
+	@Column(name="department", nullable=false)
 	private String department;
 	
 	@Column(nullable=false)
@@ -47,8 +44,9 @@ public class Employee {
 	@Column(nullable=false, unique=true)
 	private String email;
 	
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name="id")
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name="admin_id", referencedColumnName="id")
+	@JsonIgnoreProperties(value = {"emp"}, allowSetters=true)
 	private Admin admin;
 	
 	@OneToMany(mappedBy="emp", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -56,6 +54,22 @@ public class Employee {
 	
 	@OneToMany(mappedBy="emp", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<EmployeeLoan> loanCards;
+	
+	
+	
+	public Admin getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(Admin admin) {
+		this.admin = admin;
+	}
+
+	public Employee() {
+		super();
+	}
+	
+	
 	
 	public Employee(String employeeId, String employeeName, String designation, String department, Gender gender,
 			Date dob, Date doj, String email) {
@@ -69,9 +83,24 @@ public class Employee {
 		this.doj = doj;
 		this.email = email;
 	}
-	
+
+	public Employee(String employeeId, String employeeName, String designation, String department, Gender gender,
+			Date dob, Date doj, String email, Admin admin) {
+		super();
+		this.employeeId = employeeId;
+		this.employeeName = employeeName;
+		this.designation = designation;
+		this.department = department;
+		this.gender = gender;
+		this.dob = dob;
+		this.doj = doj;
+		this.email = email;
+		this.admin = admin;
+	}
+
+
 	public Employee(String employeeId, String employeeName, String designation, String department,
-			Date dob, Date doj, String email, Set<ItemPurchase> itemsPurchased, Set<EmployeeLoan> loanCards) {
+			Date dob, Date doj, String email, Admin admin, Set<ItemPurchase> itemsPurchased, Set<EmployeeLoan> loanCards) {
 		super();
 		this.employeeId = employeeId;
 		this.employeeName = employeeName;
@@ -82,6 +111,7 @@ public class Employee {
 		this.email = email;
 		this.itemsPurchased = itemsPurchased;
 		this.loanCards = loanCards;
+		this.admin = admin;
 	}
 	
 	public String getEmail() {

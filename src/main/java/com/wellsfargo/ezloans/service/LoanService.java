@@ -18,12 +18,17 @@ public class LoanService {
 	@Autowired
 	private LoanRepository loanRepo;
 	
-	public LoanCard saveLoanCard(LoanCard l) {
-		return loanRepo.save(l);
+	public void saveLoanCard(LoanCard l) {
+		loanRepo.save(l);
+		return;
 	}
 	
 	public List<LoanCard> listAll() {
 		return loanRepo.findAll();
+	}
+	
+	public Optional<LoanCard> findById(String id) {
+		return loanRepo.findById(id);
 	}
 	
 	public void updateLoan(LoanCard l) throws Exception {

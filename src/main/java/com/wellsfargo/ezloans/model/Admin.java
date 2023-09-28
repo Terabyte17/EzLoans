@@ -24,7 +24,7 @@ public class Admin {
 	@Column(nullable=false)
 	private boolean enabled;
 	
-	@OneToOne(mappedBy="admin")
+	@OneToOne(mappedBy="admin", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	Employee emp;
 
 	public Admin() {
@@ -34,6 +34,15 @@ public class Admin {
 	public Admin(Long id, String username, String password, String role, boolean enabled) {
 		super();
 		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.role = role;
+		this.enabled = enabled;
+	}
+	
+
+	public Admin(String username, String password, String role, boolean enabled) {
+		super();
 		this.username = username;
 		this.password = password;
 		this.role = role;

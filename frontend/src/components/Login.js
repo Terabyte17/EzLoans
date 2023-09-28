@@ -22,13 +22,14 @@ const Login = (props) => {
     }
 
     const onLoginError = () => {
+        console.log("login unsucessful")
         setLoginUnsuccessful(true);
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("Submit successful: ", credentials);
-
+        console.log(props.role);
         const postUrl = 'http://localhost:8088/ezloans/api/login/' + props.role;
 
         try {
@@ -37,22 +38,25 @@ const Login = (props) => {
                     'Content-Type': 'application/json'
                 }
             }, {
-                    auth: {
-                        username: credentials.username,
-                        password: credentials.password
-                    }
+                auth: {
+                    username: credentials.username,
+                    password: credentials.password
                 }
-            ).then( res => {
-                if(res == null){
+            }
+            ).then(res => {
+                if (res == null) {
                     onLoginError();
-                } else {                    
-                    localStorage.setItem('userId', res);
-                    navigate('/dashboard', {replace: true});
+                } else {
+                    console.log("Response is: ", res);
+                    localStorage.setItem('userId', res.data);
+                    localStorage.setItem('credentials', JSON.stringify(credentials));
+                    props.setUserId(res.data);
+                    navigate('/dashboard', { replace: true });
                 }
             })
-        } catch(error) {
+        } catch (error) {
             console.log("Auth error - ", error);
-        } 
+        }
 
         // const item_detail = {
         //     "itemDesc": "4 Seater dining table",

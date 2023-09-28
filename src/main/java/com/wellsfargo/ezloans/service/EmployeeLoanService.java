@@ -6,6 +6,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.wellsfargo.ezloans.exception.ResourceNotFoundException;
 import com.wellsfargo.ezloans.model.Employee;
 import com.wellsfargo.ezloans.model.EmployeeLoan;
 import com.wellsfargo.ezloans.model.LoanCard;
@@ -28,20 +29,20 @@ public class EmployeeLoanService {
 	@Autowired
 	private EmployeeRepository empRepo;
 	
-	public EmployeeLoan applyLoan(EmployeeLoan el) throws Exception {
+	public void applyLoan(EmployeeLoan el) throws Exception {
 		
 		Optional<LoanCard> loanCard = loanRepo.findById(el.getLoanCard().getLoanId());
 		Optional<Employee> emp = empRepo.findById(el.getEmp().getEmployeeId());
 		
 		if(!loanCard.isPresent() || !emp.isPresent()) {
-			// specify exception type
-			throw new Exception();
+			throw new ResourceNotFoundException("Loan Card Id or Employee ID is invalid.");
 		}
 		
 		el.setEmp(emp.get());
 		el.setLoanCard(loanCard.get());
 		
-		return empLoanRepo.save(el);
+		empLoanRepo.save(el);
+		return;
 	}
 	
 	public Set<EmployeeLoan> viewAllEmployeeLoans(String empId) {

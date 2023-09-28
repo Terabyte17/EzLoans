@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.hibernate.cache.spi.support.AbstractReadWriteAccess.Item;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -15,14 +15,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wellsfargo.ezloans.exception.ResourceNotFoundException;
 import com.wellsfargo.ezloans.model.Employee;
 import com.wellsfargo.ezloans.model.EmployeeLoan;
 import com.wellsfargo.ezloans.model.ItemPurchase;
-import com.wellsfargo.ezloans.model.Message;
 import com.wellsfargo.ezloans.service.EmployeeService;
 
 @RestController
@@ -46,41 +44,47 @@ public class EmployeeController {
 	}
 	
 	@PostMapping("/users")
-	public Message saveEmployee(@Validated @RequestBody Employee employee) {
+	public ResponseEntity<String> saveEmployee(@Validated @RequestBody Employee employee) {
 		try {
 			emp_service.saveEmployee(employee);
-			return new Message("Employee added successfully.");
+			return new ResponseEntity<>("Employee added successfully.", HttpStatus.OK);
+		}
+		catch (DataIntegrityViolationException ex) {
+			return new ResponseEntity<>("User with same Email ID exists.", HttpStatus.BAD_REQUEST);
 		}
 		catch (Exception ex) {
-			return new Message("User with same Email ID exists.");
+			return new ResponseEntity<>("Error while saving employee.", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
 	@Validated
 	@GetMapping("/users")
-	public List<Employee> getAllEmployee() {
-		return emp_service.listAll();
+	public ResponseEntity<?> getAllEmployee() {
+		List<Employee> emps = emp_service.listAll();
+		if (emps.isEmpty())
+			return new ResponseEntity<>("No Employee Found.", HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(emps, HttpStatus.OK);
 	}
 	
 	@PostMapping("/users/update")
-	public Message updateEmployee(@Validated @RequestBody Employee employee) {
+	public ResponseEntity<String> updateEmployee(@Validated @RequestBody Employee employee) {
 		try {
 			emp_service.updateEmployee(employee);
-			return new Message("Employee updated successfully.");
+			return new ResponseEntity<>("Employee updated successfully.", HttpStatus.OK);
 		}
 		catch (Exception ex) {
-			return new Message("Invalid Employee Id. Updation failed.");
+			return new ResponseEntity<>("Invalid Employee Id. Updation failed.", HttpStatus.NOT_FOUND);
 		}
 	}
 	
 	@PostMapping("/users/delete")
-	public Message deleteEmployee(@Validated @RequestBody Employee employee) {
+	public ResponseEntity<String> deleteEmployee(@Validated @RequestBody Employee employee) {
 		try {
 			emp_service.deleteEmployee(employee);
-			return new Message("Employee deleted successfully.");
+			return new ResponseEntity<>("Employee deleted successfully.", HttpStatus.OK);
 		}
 		catch (Exception ex) {
-			return new Message("Invalid Employee Id. Deletion failed.");
+			return new ResponseEntity<>("Invalid Employee Id. Deletion failed.", HttpStatus.NOT_FOUND);
 		}
 	}
 	
