@@ -60,7 +60,8 @@ function App() {
             <Routes>
               <Route path='/login' element = { userId ? <Navigate replace to={"/dashboard"} /> : <Login role="user" />} />
               <Route path='/login-admin' element={ userId ? <Navigate replace to={"/dashboard"} /> : <Login role="admin"/>}/>
-              <Route path='/dashboard' element={ userId ? <AdminDashboard /> : <Navigate replace to={"/login-admin"} /> } />
+              {/* <Route path='/dashboard' element={ userId ? <AdminDashboard /> : <Navigate replace to={"/login-admin"} /> } /> */}
+              <Route path='/dashboard' element= {<AdminDashboard />}/>
               <Route path='/about-us' element={<AboutUs />} />
               <Route path='/register-user' element={<RegisterUser />} />
             </Routes>

@@ -6,7 +6,7 @@ const AdminDashboard = () => {
 
   const [tabContent, setTabContent] = useState(0);
 
-  const tabContentComponents = [<h2>Choose an option</h2>, <CustomerData />, <></>, <></>]
+  const tabContentComponents = [<h2 style={{marginTop: "1%"}}>Select an option</h2>, <CustomerData />, <></>, <></>]
 
   const handleClick = (e, id) => {
     console.log("Value is ", e, id);
@@ -18,7 +18,7 @@ const AdminDashboard = () => {
   return (
     <div className="dashboard-container">
       <div className="heading">
-        <h1>Admin Dashboard</h1>
+        <h1>ADMIN DASHBOARD</h1>
       </div>
       <div className="button-container">
         <button className="btn btn-primary" onClick={(e) => handleClick(e,1)}>Customer Data Management</button>

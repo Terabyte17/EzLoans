@@ -1,5 +1,6 @@
 import React,{useState,useEffects, useImperativeHandle} from 'react'
 import {useNavigate} from 'react-router-dom';
+import '../styles/Dash.css';
 
 //import ProductService from '../service/ProductService';
 /*
@@ -49,36 +50,31 @@ function CustomerData() {
     We are using the map operator to loop over our products list and create the view
     */
 
-    return(
-        <div>
-    <br/>
-   
-    <h1 className="text-dark">Customer Data Management</h1>
-    <br/>
-        <div className = "d-grid gap-2 d-md-block">
-            <button className='btn btn-primary onClick={addProduct'>Add Customer</button>
+    return (
+        <div className="customer-data">
+            <h1 className="text-dark">Customer Data Management</h1>
+            <div className="add-customer-btn">
+                <button className="btn btn-primary">Add Customer</button>
+            </div>
+            <div className="table-responsive mt-3">
+                <table className="table table-bordered">
+                    <thead>
+                        <tr className="table-danger">
+                            <th>Employee Id</th>
+                            <th>Employee Name</th>
+                            <th>Designation</th>
+                            <th>Department</th>
+                            <th>Gender</th>
+                            <th>Date of Birth</th>
+                            <th>Date of Joining</th>
+                            <th>Email Id</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
         </div>
-    <br/>
-    <div className="row justify-content-center" >
-        <table className="table table-success w-auto">
-         <thead>
-            <tr className="table-danger">
-                <th>Employee Id</th>
-                <th>Employee Name</th>
-                <th>Designation</th>
-                <th>Department</th>
-                <th>Gender</th>
-                <th>Date of Birth</th>
-                <th>Date of Joining</th>
-                <th>Email Id</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        </table>
-    </div>
-   
-</div>
-        )
+    )
 }
 
 export default CustomerData
