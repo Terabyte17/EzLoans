@@ -13,8 +13,8 @@ const AddItem = (props) => {
         itemId: props?.data?.itemId,
         itemDesc: props?.data?.itemDesc,
         issueStatus: props?.data?.issueStatus,
-        itemMake: props?.data?.itemMake,
-        itemCategory: props?.data?.itemCategory,
+        itemMake: props.data ? props?.data?.itemMake : "Wooden",
+        itemCategory: props.data ? props?.data?.itemCategory : "Furniture",
         itemValuation: props?.data?.itemValuation
     })
 
@@ -30,15 +30,17 @@ const AddItem = (props) => {
         e.preventDefault();
         console.log(formData);
         if (props.action == "add") {
-            AdminService.createItem(formData).then((response) => {
+            AdminService.createItem(formData, localStorage.getItem("credentials")).then((response) => {
                 console.log("New item response: ", response);
+                props.handleCloseForm();
 
             }).catch((error) => {
                 console.log("Incomplete data: ", error);
             })
         } else {
-            AdminService.updateItem(formData).then((response) => {
+            AdminService.updateItem(formData, localStorage.getItem("credentials")).then((response) => {
                 console.log("Item update: ", response);
+                props.handleCloseForm();
                 // props.handleCloseForm();
             }).catch((error) => {
                 console.log("Update issue: ", error);

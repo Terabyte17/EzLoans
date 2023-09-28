@@ -17,7 +17,9 @@ const RegisterUser = (props) => {
         gender: props.data ? props?.data?.gender : "Male",
         dob: props?.data ? props?.data?.dob : new Date().toISOString().substring(0, 10),
         doj: props?.data ? props?.data?.doj : new Date().toISOString().substring(0, 10),
-        email: props?.data?.email
+        username: props?.data?.username,
+        email: props?.data?.email,
+        password: props?.data?.password,
     })
 
     const onChangeHandler = (event) => {
@@ -31,16 +33,18 @@ const RegisterUser = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (props.action == "add") {
-            AdminService.createCustomerData(formData).then((response) => {
+            formData["admin"] = { "username": formData["username"], "password": formData["password"], "role": "ROLE_USER", "enabled": "true" };
+            AdminService.createCustomerData(formData, localStorage.getItem("credentials")).then((response) => {
                 console.log("New customer response: ", response);
                 props.handleCloseForm();
                 console.log("Form closed");
 
             }).catch((error) => {
                 console.log("Incomplete data");
+                console.log(error);
             })
         } else {
-            AdminService.updateCustomerData(formData).then((response) => {
+            AdminService.updateCustomerData(formData, localStorage.getItem("credentials")).then((response) => {
                 console.log("Customer update: ", response);
                 props.handleCloseForm();
                 console.log("Form closed");
@@ -136,15 +140,29 @@ const RegisterUser = (props) => {
                                 name="email"
                             />
                         </div>
-
+                        <div className="mb-3">
+                            <label className='form-label'>Username</label>
+                            <input
+                                type="text"
+                                name="username"
+                                value={formData?.username}
+                                onChange={(e) => onChangeHandler(e.target)}
+                                className="form-control"
+                                placeholder="Enter username"
+                            />
+                        </div>
                         <div className="mb-3">
                             <label className='form-label'>Password</label>
                             <input
                                 type="password"
+                                name="password"
+                                value={formData?.password}
+                                onChange={(e) => onChangeHandler(e.target)}
                                 className="form-control"
                                 placeholder="Enter password"
                             />
                         </div>
+
                     </div>
                 </div>
                 <div className="d-grid">

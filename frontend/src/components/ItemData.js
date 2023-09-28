@@ -127,21 +127,21 @@ function ItemData() {
 
     function handleEditItem(key) {
         console.log("key is: ", key);
-        setItemForm(<AddItem data={itemData[key]} action="edit" />);
+        setItemForm(<AddItem data={itemData[key]} action="edit" handleCloseForm={handleCloseForm} />);
     }
 
     const handleDeleteItem = (key) => {
         console.log("key is : ", key);
-        AdminService.deleteItem(itemData[key]).then((response) => {
+        AdminService.deleteItem(itemData[key], localStorage.getItem("credentials")).then((response) => {
             console.log("Delete status: ", response);
         }).catch((error) => {
             console.log("Delete failed: ", error);
         })
-
+        fetchItemData();
     }
 
     const fetchItemData = () => {
-        AdminService.getItemData().then((response) => {
+        AdminService.getItemData(localStorage.getItem("credentials")).then((response) => {
             setItemData(response.data);
         }).catch((error) => {
             console.log(error);
@@ -164,6 +164,11 @@ function ItemData() {
         // populateTableFields();
     }
 
+    const handleCloseForm = () => {
+        setItemForm();
+        fetchItemData();
+    }
+
 
     const populateTableFields = () => {
         console.log("populate is being run",)
@@ -181,7 +186,7 @@ function ItemData() {
                         <tr key={data.itemId}>
                             <td> {data.itemId} </td>
                             <td> {data.itemDesc} </td>
-                            <td> {data.issueStatus} </td>
+                            <td> {data.issueStatus === true ? "True" : "False"} </td>
                             <td> {data.itemValuation} </td>
                             <td> {data.itemMake} </td>
                             <td> {data.itemCategory} </td>
@@ -197,7 +202,7 @@ function ItemData() {
 
     const handleAddItem = () => {
         // history('/addProduct/_add');
-        setItemForm(<AddItem action="add" />);
+        setItemForm(<AddItem action="add" handleCloseForm={handleCloseForm} />);
     }
 
     /*

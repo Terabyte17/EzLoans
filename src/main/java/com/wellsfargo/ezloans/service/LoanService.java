@@ -27,6 +27,10 @@ public class LoanService {
 		return loanRepo.findAll();
 	}
 	
+	public Optional<LoanCard> findById(String id) {
+		return loanRepo.findById(id);
+	}
+	
 	public void updateLoan(LoanCard l) throws Exception {
 		Optional<LoanCard> loan = loanRepo.findById(l.getLoanId());
 		if(loan.isEmpty()) {

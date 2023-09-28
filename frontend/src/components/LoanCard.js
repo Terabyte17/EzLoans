@@ -108,14 +108,19 @@ function LoanCard() {
         populateTableFields();
     }, [loanCard]);
 
+    const handleCloseForm = () => {
+        setLoanForm();
+        fetchLoanCard();
+    }
+
     function handleEditLoanCard(key) {
         console.log("key is: ", key);
-        setLoanForm(<ApplyLoan data={loanCard[key]} action="edit" />);
+        setLoanForm(<ApplyLoan data={loanCard[key]} action="edit" handleCloseForm={handleCloseForm} />);
     }
 
     const handleDeleteLoanCard = (key) => {
         console.log("key is : ", key);
-        AdminService.deleteLoanCard(loanCard[key]).then((response) => {
+        AdminService.deleteLoanCard(loanCard[key], localStorage.getItem("credentials")).then((response) => {
             console.log("Delete status: ", response);
         }).catch((error) => {
             console.log("Delete failed: ", error);
@@ -124,7 +129,7 @@ function LoanCard() {
     }
 
     const fetchLoanCard = () => {
-        AdminService.getLoanCard().then((response) => {
+        AdminService.getLoanCard(localStorage.getItem("credentials")).then((response) => {
             setLoanCard(response.data);
         }
         ).catch((error) => {
@@ -178,7 +183,7 @@ function LoanCard() {
 
     const handleAddLoanCard = () => {
         // history('/addProduct/_add');
-        setLoanForm(<ApplyLoan action="add" />);
+        setLoanForm(<ApplyLoan action="add" handleCloseForm={handleCloseForm} />);
     }
 
     /*

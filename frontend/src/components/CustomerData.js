@@ -40,7 +40,7 @@ function CustomerData() {
     }, [customerData]);
 
     const fetchCustomerData = () => {
-        AdminService.getCustomerData().then((response) => {
+        AdminService.getCustomerData(localStorage.getItem("credentials")).then((response) => {
             setCustomerData(response.data);
         }).catch((error) => {
             console.log(error);
@@ -75,7 +75,7 @@ function CustomerData() {
 
     const handleDeleteCustomer = (key) => {
         console.log("key is : ", key);
-        AdminService.deleteCustomerData(customerData[key]).then((response) => {
+        AdminService.deleteCustomerData(customerData[key], localStorage.getItem("credentials")).then((response) => {
             console.log("Delete status: ", response);
         }).catch((error) => {
             console.log("Delete failed: ", error);

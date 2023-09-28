@@ -10,7 +10,7 @@ const ApplyLoan = (props) => {
         loanId: props?.data?.loanId,
         loanType: props?.data?.loanType,
         durationInYears: props?.data?.durationInYears,
-        issueDate: props?.data?.issueDate
+        issueDate: props.data ? props?.data?.issueDate : new Date().toISOString().substring(0, 10)
     })
 
     const onChangeHandler = (event) => {
@@ -25,14 +25,16 @@ const ApplyLoan = (props) => {
         e.preventDefault();
         console.log(props.action);
         if (props.action == "add") {
-            AdminService.createLoanCard(formData).then((response) => {
+            AdminService.createLoanCard(formData, localStorage.getItem("credentials")).then((response) => {
                 console.log("New customer response: ", response);
+                props.handleCloseForm();
             }).catch((error) => {
                 console.log("Incomplete data");
             })
         } else {
-            AdminService.updateLoanCard(formData).then((response) => {
+            AdminService.updateLoanCard(formData, localStorage.getItem("credentials")).then((response) => {
                 console.log("Customer update: ", response);
+                props.handleCloseForm();
             }).catch((error) => {
                 console.log("Update issue: ", error);
             })

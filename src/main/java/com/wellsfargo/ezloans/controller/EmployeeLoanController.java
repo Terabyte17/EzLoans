@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wellsfargo.ezloans.exception.ResourceNotFoundException;
 import com.wellsfargo.ezloans.model.EmployeeLoan;
+import com.wellsfargo.ezloans.model.LoanCard;
 import com.wellsfargo.ezloans.service.EmployeeLoanService;
 
 @RestController
