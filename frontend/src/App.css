@@ -39,6 +39,10 @@
 }
 
 .footer{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  right: 0;
   background-color: #282c34;
   color: rgb(249, 250, 246);
   text-align: centre;
