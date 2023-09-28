@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+// import logo from './logo.png';
 import './App.css';
 
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
@@ -46,8 +46,8 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1>Loan Management  System</h1>
+        {/* <img src={logo} className="App-logo" alt="logo" /> */}
+        <h1>EzLoans</h1>
       </header>
 
       <section>
@@ -57,7 +57,7 @@ function App() {
           minHeight: '80vh', minWidth: '100vw'
         }}>
           <Router>
-            <NavBar />
+            <NavBar userId={userId} setUserId={setUserId} />
             <Routes>
               <Route path='/login' element={userId ? <Navigate replace to={"/dashboard"} /> : <Login role="user" userId={userId} setUserId={setUserId} />} />
               <Route path='/login-admin' element={userId ? <Navigate replace to={"/dashboard"} /> : <Login role="admin" userId={userId} setUserId={setUserId} />} />
