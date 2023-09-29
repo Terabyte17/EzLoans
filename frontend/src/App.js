@@ -36,11 +36,16 @@ library.add(faSignIn, faCameraRetro);
 function App() {
 
   const [userId, setUserId] = useState();
+  const [adminId, setAdminId] = useState();
 
   useEffect(() => {
     const loggedInUser = localStorage.getItem('userId');
     if (loggedInUser) {
       setUserId(loggedInUser);
+    }
+    const loggedInAdmin = localStorage.getItem('adminId');
+    if (loggedInAdmin) {
+      setAdminId(loggedInAdmin);
     }
   }, []);
 
@@ -58,10 +63,10 @@ function App() {
           minHeight: '80vh', minWidth: '100vw'
         }}>
           <Router>
-            <NavBar userId={userId} />
+            {userId ? <NavBar Id={userId} setId={setUserId} /> : <NavBar Id={adminId} setId={setAdminId} />}
             <Routes>
-              <Route path='/login' element={userId ? <Navigate replace to={"/dashboard"} /> : <Login role="user" setUserId={setUserId} />} />
-              <Route path='/login-admin' element={userId ? <Navigate replace to={"/dashboard"} /> : <Login role="admin" setUserId={setUserId} />} />
+              <Route path='/login' element={userId ? <Navigate replace to={"/dashboard"} /> : <Login role="user" setId={setUserId} />} />
+              <Route path='/login-admin' element={adminId ? <Navigate replace to={"/dashboard"} /> : <Login role="admin" setId={setAdminId} />} />
               <Route path='/dashboard' element={userId ? <AdminDashboard /> : <Navigate replace to={"/login-admin"} />} />
               <Route path='/about-us' element={<UserDashboard />} />
               <Route path='/register-user' element={<RegisterUser />} />

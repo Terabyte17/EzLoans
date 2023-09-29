@@ -32,16 +32,22 @@ function ViewItem() {
             console.log("view item length", viewItem);
             setTableData([]);
         } else {
+            console.log(viewItem);
             var tableFields = [];
             viewItem.map(
                 (data, index) => {
+                    var issueDate = new Date(data.purchaseDate);
+                    var string_issuedate = issueDate.toISOString().substring(0, 10);
+                    let base_link = "http://localhost:8088/items";
+                    let itemId = data.item.itemId;
+                    base_link.concat(itemId);
+                    document.querySelector('#baselink').innerHTML = base_link
                     tableFields.push(
-                        <tr key={data.itemId}>
-                            <td> {data.itemDesc} </td>
-                            <td> {data.issueStatus} </td>
-                            <td> {data.itemValuation} </td>
-                            <td> {data.itemMake} </td>
-                            <td> {data.itemCategory}</td>
+                        <tr key={data.issueId}>
+                            <td> {data.issueId}</td>
+                            <td> <a href="baselink"> {data.item.itemId}</a> </td>
+                            <td> {data.item.itemValuation} </td>
+                            <td> {string_issuedate} </td>
                         </tr>)
                 })
             setTableData(tableFields);
@@ -59,12 +65,10 @@ function ViewItem() {
                 {tableData.length === 0 ? <p>No data</p> : <table className="table table-success w-auto">
                     <thead>
                         <tr className="table-danger">
+                            <th> Issue Id</th>
                             <th> Item Id</th>
-                            <th> Description</th>
-                            <th> Status</th>
-                            <th> Value</th>
-                            <th> Make</th>
-                            <th> Category</th>
+                            <th> Item Valuation</th>
+                            <th> Purchase Date</th>
                         </tr>
                     </thead>
                     <tbody>

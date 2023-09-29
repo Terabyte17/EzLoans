@@ -48,9 +48,11 @@ const Login = (props) => {
                     onLoginError();
                 } else {
                     console.log("Response is: ", res);
-                    localStorage.setItem('userId', res.data);
+                    if (props.role === "admin")
+                        localStorage.setItem('adminId', res.data);
+                    else localStorage.setItem('userId', res.data);
                     localStorage.setItem('credentials', JSON.stringify(credentials));
-                    props.setUserId(res.data);
+                    props.setId(res.data);
                     navigate('/dashboard', { replace: true });
                 }
             })
@@ -130,7 +132,7 @@ const Login = (props) => {
 
     return (
         <div className='login-page'>
-            { loginUnsuccessful && <h3 className="error-message">Error in Logging in</h3>}
+            {loginUnsuccessful && <h3 className="error-message">Error in Logging in</h3>}
             <div className='login-container'>
                 <h2 className='form-heading'>{props.role} Login</h2>
                 <form onSubmit={handleSubmit} className='login-form'>
