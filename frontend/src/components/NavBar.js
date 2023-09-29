@@ -18,7 +18,9 @@ const NavBar = (props) => {
     const handleLogout = () => {
         console.log("Logout");
         var id = props.id;
-        localStorage.removeItem(id);
+        localStorage.removeItem("credentials");
+        localStorage.removeItem("adminId");
+        localStorage.removeItem("userId");
         props.setId();
         navigate('/');
     }
@@ -29,7 +31,7 @@ const NavBar = (props) => {
             {
                 props.Id ? <ul className="nav-list">
                     <li className="nav-item">
-                        <Link to="/dashboard" className="navlink">Dashboard</Link>
+                        <Link to="/dashboard" className="navlink nav-button">Dashboard</Link>
                     </li>
 
                     <li className="nav-item-right">

@@ -23,7 +23,7 @@ const AdminDashboard = () => {
         <h1>Admin Dashboard</h1>
       </div>
       <div className="button-container">
-        <button className="btn btn-primary" onClick={(e) => handleClick(e, 1)}>Customer Data Management</button>
+        <button className="btn btn-primary" onClick={(e) => handleClick(e, 1)}>Employee Data Management</button>
         <button className="btn btn-primary" onClick={(e) => handleClick(e, 2)}>Loan Card Management</button>
         <button className="btn btn-primary" onClick={(e) => handleClick(e, 3)}>Item Data Management</button>
       </div>

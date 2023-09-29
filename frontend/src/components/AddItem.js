@@ -12,7 +12,7 @@ const AddItem = (props) => {
     const [formData, setFormData] = useState({
         itemId: props?.data?.itemId,
         itemDesc: props?.data?.itemDesc,
-        issueStatus: props?.data?.issueStatus,
+        issueStatus: props.issueStatus ? props?.data?.issueStatus : "False",
         itemMake: props.data ? props?.data?.itemMake : "Wooden",
         itemCategory: props.data ? props?.data?.itemCategory : "Furniture",
         itemValuation: props?.data?.itemValuation
@@ -50,13 +50,13 @@ const AddItem = (props) => {
     }
 
     return (
-        <div className='register-container'>
-            <h2 className='form-heading'>Register User {props.action}</h2>
+        <div className='register-container-custdata'>
+            <h2 className='form-heading-apploan'>{props.action == "add" ? "Add" : "Edit"} Item</h2>
             <form className='register-form' onSubmit={(e) => handleSubmit(e)}>
                 <div className='form-fields'>
                     <div>
                         <div className="mb-3">
-                            <label className='form-label'>Item Description</label>
+                            <label className='form-label-apploan'>Item Description</label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -67,18 +67,17 @@ const AddItem = (props) => {
                             />
                         </div>
                         <div className="mb-3">
-                            <label className='form-label'>Issue Status</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                placeholder="Enter Item Status"
+                            <label className='form-label-apploan'>Issue Status</label>
+                            <select className="form-control" value={formData.issueStatus ? formData?.issueStatus : "False"}
                                 name="issueStatus"
-                                value={formData?.issueStatus}
                                 onChange={(e) => onChangeHandler(e.target)}
-                            />
+                            >
+                                <option value="True">True</option>
+                                <option value="False">False</option>
+                            </select>
                         </div>
                         <div className="mb-3">
-                            <label className='form-label'>Item Valuation</label>
+                            <label className='form-label-apploan'>Item Valuation</label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -89,7 +88,7 @@ const AddItem = (props) => {
                             />
                         </div>
                         <div className="mb-3">
-                            <label className='form-label'>Item Make</label>
+                            <label className='form-label-apploan'>Item Make</label>
                             <select className="form-control" value={formData.itemMake ? formData?.itemMake : "Wooden"}
                                 onChange={(e) => onChangeHandler(e.target)}
                                 name="itemMake"
@@ -100,7 +99,7 @@ const AddItem = (props) => {
                             </select>
                         </div>
                         <div className="mb-3">
-                            <label className='form-label'>Item Category</label>
+                            <label className='form-label-apploan'>Item Category</label>
                             <select className="form-control" value={formData.itemCategory ? formData?.itemCategory : "Furniture"}
                                 onChange={(e) => onChangeHandler(e.target)}
                                 name="itemCategory"

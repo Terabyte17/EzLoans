@@ -51,12 +51,12 @@ function ViewLoan() {
 
 
     return (
-        <div>
+        <div className="customer-data">
             <br />
-            <h1 className="text-warning">View Loans</h1>
+            <h1 className="text-dark">View Loans</h1>
             <br />
-            <div className="row justify-content-center" >
-                {tableData.length === 0 ? <p>No data</p> : <table className="table table-success w-auto">
+            <div className="table-responsive mt-3" >
+                {tableData.length === 0 ? <p>No data</p> : <table className="table table-bordered">
                     <thead>
                         <tr className="table-danger">
                             <th> Loan Id</th>

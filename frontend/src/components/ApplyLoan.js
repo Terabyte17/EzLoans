@@ -8,7 +8,7 @@ const ApplyLoan = (props) => {
 
     const [formData, setFormData] = useState({
         loanId: props?.data?.loanId,
-        loanType: props?.data?.loanType,
+        loanType: props.data ? props?.data?.loanType : "Furniture",
         durationInYears: props?.data?.durationInYears,
         issueDate: props.data ? props?.data?.issueDate : new Date().toISOString().substring(0, 10)
     })
@@ -44,23 +44,23 @@ const ApplyLoan = (props) => {
 
     return (
         <div className='register-container'>
-            <h2 className='form-heading'>Register User {props.action}</h2>
+            <h2 className='form-heading-apploan'>{props.action == "add" ? "Add" : "Edit"} Loan Card</h2>
             <form className='register-form' onSubmit={(e) => handleSubmit(e)}>
                 <div className='form-fields'>
                     <div>
                         <div className="mb-3">
-                            <label className='form-label'>Loan Type</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                placeholder="Enter Loan Type"
+                            <label className='form-label-apploan'>Loan Type</label>
+                            <select className="form-control" value={formData.loanType ? formData.loanType : "Furniture"}
                                 name="loanType"
-                                value={props?.data?.loanType}
                                 onChange={(e) => onChangeHandler(e.target)}
-                            />
+                            >
+                                <option value="Furniture">Furniture</option>
+                                <option value="Crockery">Crockery</option>
+                                <option value="Stationary">Stationary</option>
+                            </select>
                         </div>
                         <div className="mb-3">
-                            <label className='form-label'>Loan Duration</label>
+                            <label className='form-label-apploan'>Loan Duration</label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -71,7 +71,7 @@ const ApplyLoan = (props) => {
                             />
                         </div>
                         <div className="mb-3">
-                            <label className='form-label'>Date of Issue</label>
+                            <label className='form-label-apploan'>Date of Issue</label>
                             <input
                                 type="date"
                                 className="form-control"

@@ -20,7 +20,7 @@ const UserDashboard = () => {
     return (
         <div className="dashboard-container">
             <div className="heading">
-                <h1>UserDashboard Dashboard</h1>
+                <h1>User Dashboard</h1>
             </div>
             <div className="button-container">
                 <button className="btn btn-primary" onClick={(e) => handleClick(e, 1)}>View Loans</button>

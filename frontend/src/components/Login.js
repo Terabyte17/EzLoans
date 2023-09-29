@@ -44,7 +44,7 @@ const Login = (props) => {
                 }
             }
             ).then(res => {
-                if (res == null) {
+                if (res.data == "") {
                     onLoginError();
                 } else {
                     console.log("Response is: ", res);

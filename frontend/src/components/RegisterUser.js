@@ -56,13 +56,13 @@ const RegisterUser = (props) => {
     }
 
     return (
-        <div className='register-container'>
-            <h2 className='form-heading'>Register User {props.action}</h2>
+        <div className='register-container-custdata'>
+            <h2 className='form-heading-apploan'>{props.action == "add" ? "Add" : "Edit"} Employee</h2>
             <form className='register-form' onSubmit={(e) => handleSubmit(e)}>
                 <div className='form-fields'>
                     <div>
                         <div className="mb-3">
-                            <label className='form-label'>Name</label>
+                            <label className='form-label-apploan'>Name</label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -73,7 +73,7 @@ const RegisterUser = (props) => {
                             />
                         </div>
                         <div className="mb-3">
-                            <label className='form-label'>Designation</label>
+                            <label className='form-label-apploan'>Designation</label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -84,7 +84,7 @@ const RegisterUser = (props) => {
                             />
                         </div>
                         <div className="mb-3">
-                            <label className='form-label'>Department</label>
+                            <label className='form-label-apploan'>Department</label>
                             <select className="form-control" value={formData.department ? formData?.department : "Sales"}
                                 onChange={(e) => onChangeHandler(e.target)}
                                 name="department"
@@ -95,7 +95,7 @@ const RegisterUser = (props) => {
                             </select>
                         </div>
                         <div className="mb-3">
-                            <label className='form-label'>Gender</label>
+                            <label className='form-label-apploan'>Gender</label>
                             <select className="form-control" value={formData.gender ? formData?.gender : "Male"}
                                 onChange={(e) => onChangeHandler(e.target)}
                                 name="gender"
@@ -108,7 +108,7 @@ const RegisterUser = (props) => {
                     </div>
                     <div>
                         <div className="mb-3">
-                            <label className='form-label'>Date of Birth</label>
+                            <label className='form-label-apploan'>Date of Birth</label>
                             <input
                                 type="date"
                                 className="form-control"
@@ -119,7 +119,7 @@ const RegisterUser = (props) => {
                             />
                         </div>
                         <div className="mb-3">
-                            <label className='form-label'>Date of Joining</label>
+                            <label className='form-label-apploan'>Date of Joining</label>
                             <input
                                 type="date"
                                 className="form-control"
@@ -130,7 +130,7 @@ const RegisterUser = (props) => {
                             />
                         </div>
                         <div className="mb-3">
-                            <label className='form-label'>Email address</label>
+                            <label className='form-label-apploan'>Email address</label>
                             <input
                                 type="email"
                                 className="form-control"
@@ -141,7 +141,7 @@ const RegisterUser = (props) => {
                             />
                         </div>
                         <div className="mb-3">
-                            <label className='form-label'>Username</label>
+                            <label className='form-label-apploan'>Username</label>
                             <input
                                 type="text"
                                 name="username"
@@ -152,7 +152,7 @@ const RegisterUser = (props) => {
                             />
                         </div>
                         <div className="mb-3">
-                            <label className='form-label'>Password</label>
+                            <label className='form-label-apploan'>Password</label>
                             <input
                                 type="password"
                                 name="password"

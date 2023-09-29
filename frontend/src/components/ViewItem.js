@@ -38,14 +38,14 @@ function ViewItem() {
                 (data, index) => {
                     var issueDate = new Date(data.purchaseDate);
                     var string_issuedate = issueDate.toISOString().substring(0, 10);
-                    let base_link = "http://localhost:8088/items";
-                    let itemId = data.item.itemId;
-                    base_link.concat(itemId);
-                    document.querySelector('#baselink').innerHTML = base_link
+                    // let base_link = "http://localhost:8088/items";
+                    // let itemId = data.item.itemId;
+                    // base_link.concat(itemId);
+                    // document.querySelector('#baselink').innerHTML = base_link
                     tableFields.push(
                         <tr key={data.issueId}>
                             <td> {data.issueId}</td>
-                            <td> <a href="baselink"> {data.item.itemId}</a> </td>
+                            <td> <a href="http://localhost:8088/items"> {data.item.itemId}</a> </td>
                             <td> {data.item.itemValuation} </td>
                             <td> {string_issuedate} </td>
                         </tr>)
@@ -57,12 +57,12 @@ function ViewItem() {
 
 
     return (
-        <div>
+        <div className='customer-data'>
             <br />
-            <h1 className="text-warning">View Items</h1>
+            <h1 className="text-dark">View Items</h1>
             <br />
-            <div className="row justify-content-center" >
-                {tableData.length === 0 ? <p>No data</p> : <table className="table table-success w-auto">
+            <div className="table-responsive mt-3" >
+                {tableData.length === 0 ? <p>No data</p> : <table className="table table-bordered">
                     <thead>
                         <tr className="table-danger">
                             <th> Issue Id</th>

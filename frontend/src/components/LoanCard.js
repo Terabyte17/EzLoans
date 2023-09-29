@@ -203,7 +203,7 @@ function LoanCard() {
                 {loanForm}
             </div>
             <div className="add-customer-btn">
-                <button className='btn btn-primary' onClick={handleAddLoanCard}>Apply Loan</button>
+                <button className='btn btn-primary' onClick={handleAddLoanCard}>Add Loan Card</button>
             </div>
             <br />
             <div className="table-responsive mt-3" >

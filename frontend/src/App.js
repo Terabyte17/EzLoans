@@ -67,9 +67,13 @@ function App() {
             <Routes>
               <Route path='/login' element={userId ? <Navigate replace to={"/dashboard"} /> : <Login role="user" setId={setUserId} />} />
               <Route path='/login-admin' element={adminId ? <Navigate replace to={"/dashboard"} /> : <Login role="admin" setId={setAdminId} />} />
-              <Route path='/dashboard' element={userId ? <AdminDashboard /> : <Navigate replace to={"/login-admin"} />} />
-              <Route path='/about-us' element={<UserDashboard />} />
+              {/* <Route path='/dashboard' element={userId ? <AdminDashboard /> : <Navigate replace to={"/login-admin"} />} /> */}
+              {adminId && <Route path='/dashboard' element={<AdminDashboard />} />}
+              {userId && <Route path='/dashboard' element={<UserDashboard />} />}
+              <Route path='/dashboard' element={<Navigate replace to={"/"} />} />
+              <Route path='/about-us' element={<AboutUs />} />
               <Route path='/register-user' element={<RegisterUser />} />
+
             </Routes>
           </Router>
         </div>

@@ -129,12 +129,12 @@ function CustomerData() {
 
     return (
         <div className="customer-data">
-            <h1 className="text-dark">Customer Data Management</h1>
+            <h1 className="text-dark">Employee Data Management</h1>
             <div>
                 {customerForm}
             </div>
             <div className="add-customer-btn">
-                <button className="btn btn-primary" onClick={handleAddCustomer}>Add Customer</button>
+                <button className="btn btn-primary" onClick={handleAddCustomer}>Add Employee</button>
             </div>
             <div className="table-responsive mt-3">
                 {tableData.length === 0 ? <p>No data</p> : <table className="table table-bordered">
