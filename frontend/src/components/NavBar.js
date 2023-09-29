@@ -33,24 +33,23 @@ const NavBar = (props) => {
                     </li>
 
                     <li className="nav-item-right">
-                        <Link to="/about-us" className="navlink">About Us</Link>
+                        <Link to="/about-us" className="navlink nav-button">About Us</Link>
                     </li>
 
                     <li className="nav-item-right">
-                        <Link to="/login" className="navlink" onClick={handleLogout}>Logout</Link>
+                        <Link to="/login" className="navlink nav-button" onClick={handleLogout}>Logout</Link>
                     </li>
                 </ul> : <ul className="nav-list">
                     <li className="nav-item">
-                        <Link to="/login" className="navlink">User Login</Link>
-                        <span><FontAwesomeIcon icon="sign-in"></FontAwesomeIcon></span>
+                        <Link to="/login" className="navlink nav-button">User Login <span><FontAwesomeIcon icon="sign-in"></FontAwesomeIcon></span> </Link>
                     </li>
 
                     <li className="nav-item">
-                        <Link to="/login-admin" className="navlink">Admin Login</Link>
+                        <Link to="/login-admin" className="navlink nav-button">Admin Login <span><FontAwesomeIcon icon="sign-in"></FontAwesomeIcon></span> </Link>
                     </li>
 
                     <li className="nav-item-right">
-                        <Link to="/about-us" className="navlink">About Us</Link>
+                        <Link to="/about-us" className="navlink nav-button">About Us</Link>
                     </li>
                 </ul>
             }
