@@ -134,11 +134,11 @@ function CustomerData() {
                 {customerForm}
             </div>
             <div className="add-customer-btn">
-                <button className="btn btn-primary">Add Customer</button>
+                <button className="btn btn-primary" onClick={handleAddCustomer}>Add Customer</button>
             </div>
             <div className="table-responsive mt-3">
-                {tableData.length === 0 ? <p>No data</p> : <table className="table table-success w-auto">
-                {/* <table className="table table-bordered"> */}
+                {tableData.length === 0 ? <p>No data</p> : <table className="table table-bordered">
+                    {/* <table className="table table-bordered"> */}
                     <thead>
                         <tr className="table-danger">
                             <th>Employee Id</th>
@@ -149,11 +149,14 @@ function CustomerData() {
                             <th>Date of Birth</th>
                             <th>Date of Joining</th>
                             <th>Email Id</th>
-                            <th>Actions</th>
+                            <th colspan="2">Actions</th>
                         </tr>
                     </thead>
+                    <tbody>
+                        {tableData}
+                    </tbody>
                 </table>
-                }   
+                }
             </div>
         </div>
     )

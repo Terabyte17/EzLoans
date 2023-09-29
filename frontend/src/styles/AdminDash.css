@@ -1,4 +1,4 @@
-.dashboard-container{
+.dashboard-container {
     background-size: cover;
     height: 100vh;
     display: flex;
@@ -9,4 +9,5 @@
 .heading {
     text-align: center;
     margin-bottom: 20px;
+    font-family: cursive;
 }

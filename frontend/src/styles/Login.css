@@ -4,6 +4,9 @@
     align-items: center;
     height: 80vh;
     background: #fafafa;
+    background-image: url("/public/bg.jpg");
+    background-size: cover;
+    background-position: center;
 }
 
 .login-container {
@@ -35,7 +38,7 @@
     width: 100%;
     height: 40px;
     background: #f1f1f1;
-    border:none;
+    border: none;
     padding: 0 15px;
     box-sizing: border-box;
     border-radius: 4px;
@@ -52,7 +55,8 @@
     text-transform: uppercase;
     font-weight: bold;
 }
-.login-form .d-grid .btn:hover, 
+
+.login-form .d-grid .btn:hover,
 .login-form .d-grid .btn:focus {
     background: #0056b3;
     transition: background 0.3s ease-in-out;

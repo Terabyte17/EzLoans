@@ -195,26 +195,26 @@ function LoanCard() {
 
 
     return (
-        <div>
+        <div className="customer-data">
             <br />
-            <h1 className="text-warning">Loan Card Management</h1>
+            <h1 className="text-dark">Loan Card Management</h1>
             <br />
             <div>
                 {loanForm}
             </div>
-            <div className="row justify-content-center">
-                <button className='btn btn-info-w-auto' onClick={handleAddLoanCard}>Apply Loan</button>
+            <div className="add-customer-btn">
+                <button className='btn btn-primary' onClick={handleAddLoanCard}>Apply Loan</button>
             </div>
             <br />
-            <div className="row justify-content-center" >
-                {tableData.length === 0 ? <p>No data</p> : <table className="table table-success w-auto">
+            <div className="table-responsive mt-3" >
+                {tableData.length === 0 ? <p>No data</p> : <table className="table table-bordered">
                     <thead>
                         <tr className="table-danger">
                             <th> Loan Id</th>
                             <th> Loan Type</th>
                             <th> Duration (in yrs)</th>
                             <th> Date of Issue</th>
-                            <th> Action</th>
+                            <th colspan="2"> Actions</th>
                         </tr>
                     </thead>
                     <tbody>

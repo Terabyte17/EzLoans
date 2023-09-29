@@ -1,14 +1,16 @@
-nav{
-  background-color: #282c34;
+nav {
+  background-color: rgba(190, 244, 125, 0.838);
   padding: 7px;
   height: 60px;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  color: white;
 }
+
 .navbar {
-  display: flex;  
-  
+  display: flex;
+
 }
 
 .nav-list {
@@ -20,10 +22,12 @@ nav{
 
 .nav-item {
   margin-left: 20px;
+  color: white;
 }
 
 .nav-item-right {
   margin-left: auto;
+  color: white;
 }
 
 .navlink {
@@ -76,14 +80,14 @@ nav{
 
 @media screen and (max-width: 767px) {
   .nav-list {
-      display: none;
+    display: none;
   }
 
   .menu-icon {
-      display: block;
+    display: block;
   }
 
   .nav-item {
-      margin: 15px 0;
+    margin: 15px 0;
   }
 }

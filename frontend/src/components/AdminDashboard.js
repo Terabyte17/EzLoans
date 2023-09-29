@@ -8,11 +8,11 @@ const AdminDashboard = () => {
 
   const [tabContent, setTabContent] = useState(0);
 
-  const tabContentComponents = [<h2 style={{marginTop: "1%"}}>Select an option</h2>, <CustomerData />, <LoanCard/>, <ItemData/>]
+  const tabContentComponents = [<h2 style={{ marginTop: "1%" }}>Select an option</h2>, <CustomerData />, <LoanCard />, <ItemData />]
 
   const handleClick = (e, id) => {
     console.log("Value is ", e, id);
-    if(tabContent == id)
+    if (tabContent == id)
       setTabContent(0);
     else setTabContent(id);
   }
@@ -20,12 +20,12 @@ const AdminDashboard = () => {
   return (
     <div className="dashboard-container">
       <div className="heading">
-        <h1>ADMIN DASHBOARD</h1>
+        <h1>Admin Dashboard</h1>
       </div>
       <div className="button-container">
-        <button className="btn btn-primary" onClick={(e) => handleClick(e,1)}>Customer Data Management</button>
-        <button className="btn btn-primary" onClick={(e) => handleClick(e,2)}>Loan Card Management</button>
-        <button className="btn btn-primary" onClick={(e) => handleClick(e,3)}>Item Data Management</button>
+        <button className="btn btn-primary" onClick={(e) => handleClick(e, 1)}>Customer Data Management</button>
+        <button className="btn btn-primary" onClick={(e) => handleClick(e, 2)}>Loan Card Management</button>
+        <button className="btn btn-primary" onClick={(e) => handleClick(e, 3)}>Item Data Management</button>
       </div>
       {
         tabContentComponents[tabContent]

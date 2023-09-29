@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const CUSTOMERLOANS_REST_API_URL = 'http://localhost:8088/ezloans/api/allLoans';
-const CUSTOMERITEMS_REST_API_URL = 'http://localhost:8088/ezloans/api/users/items';
+const CUSTOMERITEMS_REST_API_URL = 'http://localhost:8088/ezloans/api/allItems';
 const CUSTOMER_PURCHASE_ITEM_REST_API_URL = 'http://localhost:8088/ezloans/api/users';
 const LOANS_REST_API_URL = 'http://localhost:8088/ezloans/api/loans'
 

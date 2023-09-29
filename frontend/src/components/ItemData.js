@@ -214,19 +214,19 @@ function ItemData() {
 
 
     return (
-        <div>
+        <div className="customer-data">
             <br />
-            <h1 className="text-warning">Items Data Management</h1>
+            <h1 className="text-dark">Items Data Management</h1>
             <br />
             <div>
                 {itemForm}
             </div>
-            <div className="row justify-content-center">
-                <button className='btn btn-info-w-auto' onClick={handleAddItem}>Add Item</button>
+            <div className="add-customer-btn">
+                <button className='btn btn-primary' onClick={handleAddItem}>Add Item</button>
             </div>
             <br />
-            <div className="row justify-content-center" >
-                {tableData.length === 0 ? <p>No data</p> : <table className="table table-success w-auto">
+            <div className="table-responsive mt-3" >
+                {tableData.length === 0 ? <p>No data</p> : <table className="table table-bordered">
                     <thead>
                         <tr className="table-danger">
                             <th> Item Id</th>
@@ -235,7 +235,7 @@ function ItemData() {
                             <th> Valuation</th>
                             <th> Make</th>
                             <th> Category</th>
-                            <th> Action</th>
+                            <th colspan="2"> Action</th>
                         </tr>
                     </thead>
                     <tbody>

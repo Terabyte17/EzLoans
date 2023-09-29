@@ -7,7 +7,6 @@ import Registration from './components/Registration';
 import Login from './components/Login';
 import RegisterUser from './components/RegisterUser';
 import ViewLoan from './components/ViewLoan';
-
 /*
   React Router is a standard library for routing in React. 
   It enables the navigation among views of various components in a React Application, 
@@ -30,6 +29,8 @@ import { faSignIn, faCameraRetro } from '@fortawesome/free-solid-svg-icons';
 import AboutUs from './components/AboutUs';
 import { useEffect, useState } from 'react';
 import AdminDashboard from './components/AdminDashboard';
+import UserDashboard from './components/UserDashboard';
+
 library.add(faSignIn, faCameraRetro);
 
 function App() {
@@ -46,7 +47,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" /> 
+        <img src={logo} className="App-logo" alt="logo" />
         <h1>EzLoans</h1>
       </header>
 
@@ -57,12 +58,12 @@ function App() {
           minHeight: '80vh', minWidth: '100vw'
         }}>
           <Router>
-            <NavBar />
+            <NavBar userId={userId} />
             <Routes>
-              <Route path='/login' element = { userId ? <Navigate replace to={"/dashboard"} /> : <Login role="user" />} />
-              <Route path='/login-admin' element={ userId ? <Navigate replace to={"/dashboard"} /> : <Login role="admin"/>}/>
-              <Route path='/dashboard' element={ userId ? <AdminDashboard /> : <Navigate replace to={"/login-admin"} /> } />
-              <Route path='/about-us' element={<AboutUs />} />
+              <Route path='/login' element={userId ? <Navigate replace to={"/dashboard"} /> : <Login role="user" setUserId={setUserId} />} />
+              <Route path='/login-admin' element={userId ? <Navigate replace to={"/dashboard"} /> : <Login role="admin" setUserId={setUserId} />} />
+              <Route path='/dashboard' element={userId ? <AdminDashboard /> : <Navigate replace to={"/login-admin"} />} />
+              <Route path='/about-us' element={<UserDashboard />} />
               <Route path='/register-user' element={<RegisterUser />} />
             </Routes>
           </Router>

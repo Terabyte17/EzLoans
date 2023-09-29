@@ -4,23 +4,23 @@ import { useNavigate } from 'react-router-dom';
 import UserService from '../services/UserService';
 
 
-function ViewLoan() {
+function ViewItem() {
     /*const history = useNavigate();
     // state Management using useState() Hook */
-    const [viewLoan, setViewLoan] = useState([]);
+    const [viewItem, setViewItem] = useState([]);
     const [tableData, setTableData] = useState([]);
 
     useEffect(() => {
-        fetchViewLoan();
+        fetchViewItem();
     }, []);
 
     useEffect(() => {
         populateTableFields();
-    }, [viewLoan]);
+    }, [viewItem]);
 
-    const fetchViewLoan = () => {
-        UserService.getCustomerLoans(localStorage.getItem("credentials"), localStorage.getItem("userId")).then((response) => {
-            setViewLoan(response.data);
+    const fetchViewItem = () => {
+        UserService.getCustomerItems(localStorage.getItem("credentials"), localStorage.getItem("userId")).then((response) => {
+            setViewItem(response.data);
         }).catch((error) => {
             console.log(error);
         })
@@ -28,20 +28,20 @@ function ViewLoan() {
 
     const populateTableFields = () => {
         console.log("populate is being run",)
-        if (viewLoan.length === 0) {
-            console.log("view loan length", viewLoan);
+        if (viewItem.length === 0) {
+            console.log("view item length", viewItem);
             setTableData([]);
         } else {
             var tableFields = [];
-            viewLoan.map(
+            viewItem.map(
                 (data, index) => {
-                    var issueDate = new Date(data.cardIssueDate);
-                    var string_issuedate = issueDate.toISOString().substring(0, 10);
                     tableFields.push(
-                        <tr key={data.loanIssueId}>
-                            <td> {data.loanIssueId} </td>
-                            <td><a href="http://localhost:3000/loan"> {data.loanCard.loanId} </a></td>
-                            <td> {string_issuedate} </td>
+                        <tr key={data.itemId}>
+                            <td> {data.itemDesc} </td>
+                            <td> {data.issueStatus} </td>
+                            <td> {data.itemValuation} </td>
+                            <td> {data.itemMake} </td>
+                            <td> {data.itemCategory}</td>
                         </tr>)
                 })
             setTableData(tableFields);
@@ -53,15 +53,18 @@ function ViewLoan() {
     return (
         <div>
             <br />
-            <h1 className="text-warning">View Loans</h1>
+            <h1 className="text-warning">View Items</h1>
             <br />
             <div className="row justify-content-center" >
                 {tableData.length === 0 ? <p>No data</p> : <table className="table table-success w-auto">
                     <thead>
                         <tr className="table-danger">
-                            <th> Loan Id</th>
-                            <th> Loan Card Id</th>
-                            <th> Issue Date</th>
+                            <th> Item Id</th>
+                            <th> Description</th>
+                            <th> Status</th>
+                            <th> Value</th>
+                            <th> Make</th>
+                            <th> Category</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -74,5 +77,4 @@ function ViewLoan() {
     )
 }
 
-export default ViewLoan
-
+export default ViewItem
