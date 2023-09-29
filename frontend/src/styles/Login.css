@@ -2,11 +2,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80vh;
+    height: 86vh;
     background: tan;
     background-image: url("/public/bg5.gif");
     background-repeat: no-repeat;
-    background-size: 800px 620px;
+    background-size: 60% 100%;
     background-position: 100% 5%;
 }
 
