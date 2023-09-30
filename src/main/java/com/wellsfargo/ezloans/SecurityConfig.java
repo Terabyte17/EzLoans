@@ -28,9 +28,12 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
             		.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
             		.requestMatchers("/api/login/admin", "/api/login/user").permitAll()
+            		.requestMatchers("/api/loans/update", "/api/loans/delete", "/api/items/update", "/api/items/delete").hasAnyRole("ADMIN")
+            		.requestMatchers("/api/items", "/api/loans", "/api/loans/**",
+            						 "/api/items/**", "/api/purchaseItem").hasAnyRole("USER", "ADMIN")
             		.requestMatchers("/api/users/update", "/api/users/delete", 
-            						 "/api/users", "/api/items", "/api/items/**", //remove purchase item from here
-            						 "/api/loans", "/api/loans/**", "/api/purchaseItem").hasAnyRole("ADMIN")
+            						 "/api/users", "/api/items/**", //remove purchase item from here
+            						 "/api/loans/**").hasAnyRole("ADMIN")
                     .requestMatchers("/**").hasAnyRole("USER")
                     .anyRequest().authenticated())
 //            		.httpBasic(Customizer.withDefaults())

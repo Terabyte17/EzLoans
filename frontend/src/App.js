@@ -70,7 +70,7 @@ function App() {
               {/* <Route path='/dashboard' element={userId ? <AdminDashboard /> : <Navigate replace to={"/login-admin"} />} /> */}
               {adminId && <Route path='/dashboard' element={<AdminDashboard />} />}
               {userId && <Route path='/dashboard' element={<UserDashboard />} />}
-              <Route path='/dashboard' element={<Navigate replace to={"/"} />} />
+              {/* <Route path='/dashboard' element={<Navigate replace to={"/"} />} /> */}
               <Route path='/about-us' element={<AboutUs />} />
               <Route path='/register-user' element={<RegisterUser />} />
 

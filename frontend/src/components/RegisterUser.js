@@ -4,9 +4,12 @@ import '../styles/RegisterUser.css';
 import AdminService from '../services/AdminService';
 import { useNavigate } from 'react-router-dom';
 
+
 const RegisterUser = (props) => {
 
     const navigate = useNavigate();
+
+
 
 
     const [formData, setFormData] = useState({
@@ -21,6 +24,8 @@ const RegisterUser = (props) => {
         email: props?.data?.email,
         password: props?.data?.password,
     })
+
+
 
     const onChangeHandler = (event) => {
         console.log("Event is: ", event)
@@ -53,10 +58,16 @@ const RegisterUser = (props) => {
             })
         }
         console.log("form data", formData);
+
+    }
+
+    const handleClickCloseButton = () => {
+        props.handleCloseForm();
     }
 
     return (
         <div className='register-container-custdata'>
+            <button onClick={handleClickCloseButton}>Close</button>
             <h2 className='form-heading-apploan'>{props.action == "add" ? "Add" : "Edit"} Employee</h2>
             <form className='register-form' onSubmit={(e) => handleSubmit(e)}>
                 <div className='form-fields'>

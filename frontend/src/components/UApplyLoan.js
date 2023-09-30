@@ -1,98 +1,94 @@
-import { React, useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.css';
-import '../styles/ApplyLoan.css';
+import React, { useState, useEffect, useImperativeHandle } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import AdminService from '../services/AdminService';
+import UserService from '../services/UserService';
 
-const ApplyLoan = (props) => {
+function UApplyLoan() {
+    const [item, setItem] = useState([]);
+    const [tableData, setTableData] = useState([]);
 
+    useEffect(() => {
+        fetchItem();
+    }, []);
 
-    const [formData, setFormData] = useState({
-        loanId: props?.data?.loanId,
-        loanType: props?.data?.loanType,
-        durationInYears: props?.data?.durationInYears,
-        issueDate: props.data ? props?.data?.issueDate : new Date().toISOString().substring(0, 10)
-    })
+    useEffect(() => {
+        populateTableFields();
+    }, [item]);
 
-    const onChangeHandler = (event) => {
-        console.log("Event is: ", event)
-        const { name, value } = event
-        setFormData((prev) => {
-            return { ...prev, [name]: value }
+    const fetchItem = () => {
+        AdminService.getItemData(localStorage.getItem("credentials")).then((response) => {
+            setItem(response.data);
+        }).catch((error) => {
+            console.log(error);
         })
     }
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(props.action);
-        if (props.action == "add") {
-            AdminService.createLoanCard(formData, localStorage.getItem("credentials")).then((response) => {
-                console.log("New customer response: ", response);
-                props.handleCloseForm();
-            }).catch((error) => {
-                console.log("Incomplete data");
-            })
+    const populateTableFields = () => {
+        console.log("populate is being run",)
+        if (item.length === 0) {
+            console.log("item length", item);
+            setTableData([]);
         } else {
-            AdminService.updateLoanCard(formData, localStorage.getItem("credentials")).then((response) => {
-                console.log("Customer update: ", response);
-                props.handleCloseForm();
-            }).catch((error) => {
-                console.log("Update issue: ", error);
-            })
+            var tableFields = [];
+            item.map(
+                (data, index) => {
+                    //var dob = new Date(data.dob), doj = new Date(data.doj);
+                    //var string_dob = dob.toISOString().substring(0, 10);
+                    //var string_doj = doj.toISOString().substring(0, 10);
+                    tableFields.push(
+                        <tr key={data.itemId}>
+                            <td> {data.itemId} </td>
+                            <td> {data.itemDesc} </td>
+                            <td> {data.issueStatus === true ? "True" : "False"} </td>
+                            <td> {data.itemValuation} </td>
+                            <td> {data.itemMake} </td>
+                            <td> {data.itemCategory} </td>
+                            <td><button onClick={() => handlePurchaseItem(index)}>Purchase</button></td>
+                        </tr>)
+                    // console.log(data.dob, Date(data.dob * 1000))
+                })
+            setTableData(tableFields);
+            console.log("table fields", tableFields);
         }
-        console.log("form data", formData);
+    }
+
+    const handlePurchaseItem = (key) => {
+        console.log("key is : ", key);
+        UserService.purchaseItem(item[key], localStorage.getItem("credentials"), localStorage.getItem("userId")).then((response) => {
+            console.log("Purchase status: ", response);
+        }).catch((error) => {
+            console.log("Purchase failed: ", error);
+        })
+        fetchItem();
     }
 
     return (
-        <div className='register-container'>
-            <h2 className='form-heading'>Register User {props.action}</h2>
-            <form className='register-form' onSubmit={(e) => handleSubmit(e)}>
-                <div className='form-fields'>
-                    <div>
-                        <div className="mb-3">
-                            <label className='form-label'>Loan Type</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                placeholder="Enter Loan Type"
-                                name="loanType"
-                                value={props?.data?.loanType}
-                                onChange={(e) => onChangeHandler(e.target)}
-                            />
-                        </div>
-                        <div className="mb-3">
-                            <label className='form-label'>Loan Duration</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                placeholder="Enter Loan Duration"
-                                name="durationInYears"
-                                value={formData?.durationInYears}
-                                onChange={(e) => onChangeHandler(e.target)}
-                            />
-                        </div>
-                        <div className="mb-3">
-                            <label className='form-label'>Date of Issue</label>
-                            <input
-                                type="date"
-                                className="form-control"
-                                placeholder="Enter Date of Issue"
-                                value={formData?.issueDate ? new Date(formData.issueDate).toISOString().substring(0, 10) : new Date().toISOString().substring(0, 10)}
-                                onChange={(e) => onChangeHandler(e.target)}
-                                name="issueDate"
-                            />
-                        </div>
-                    </div>
-                </div>
-                <div className="d-grid">
-                    <button type="submit" className="submit-btn btn btn-primary">
-                        Submit
-                    </button>
-                </div>
-            </form>
+        <div className="loan-data">
+            <br />
+            <h1 className="text-dark">Apply Loan</h1>
+            <br />
+            <div className="table-responsive mt-3" >
+                {tableData.length === 0 ? <p>No data</p> : <table className="table table-bordered">
+                    <thead>
+                        <tr className="table-danger">
+                            <th> Item Id</th>
+                            <th> Description</th>
+                            <th> Status</th>
+                            <th> Valuation</th>
+                            <th> Make</th>
+                            <th> Category</th>
+                            <th> Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {tableData}
+                    </tbody>
+                </table>
+                }
+            </div>
         </div>
     )
-
 }
 
-export default ApplyLoan;
-
+export default UApplyLoan;

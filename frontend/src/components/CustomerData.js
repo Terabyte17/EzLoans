@@ -30,6 +30,7 @@ function CustomerData() {
     const [customerData, setCustomerData] = useState([]);
     const [tableData, setTableData] = useState([]);
     const [customerForm, setCustomerForm] = useState();
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
         fetchCustomerData();

@@ -7,6 +7,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.wellsfargo.ezloans.exception.UserAlreadyExistsException;
 import com.wellsfargo.ezloans.model.Employee;
 import com.wellsfargo.ezloans.model.EmployeeLoan;
 import com.wellsfargo.ezloans.model.Item;
@@ -25,7 +26,7 @@ import jakarta.transaction.Transactional;
 public class EmployeeService {
 	
 	@Autowired
-	private EmployeeRepository emp_repo;
+	private EmployeeRepository empRepo;
 	
 	@Autowired
 	private ItemPurchaseRepository itemPurchaseRepo;
@@ -40,31 +41,39 @@ public class EmployeeService {
 	private LoanRepository loanRepo;
 	
 	public String findByUsername(String username) throws Exception {
-		Optional<Employee> emp = emp_repo.findByAdminUsername(username);
+		Optional<Employee> emp = empRepo.findByAdminUsername(username);
 		if(emp.isEmpty())
 			throw new Exception("Invalid Username.");
 		return emp.get().getEmployeeId();
 	}
 	
 	public void saveEmployee(Employee e) throws Exception {
-		emp_repo.save(e);
+		Optional<Employee> emp = empRepo.findByAdminUsername(e.getAdmin().getUsername());
+		if(emp.isPresent()) {
+			throw new UserAlreadyExistsException("This username is already taken.");
+		}
+		emp = empRepo.findByEmail(e.getEmail());
+		if(emp.isPresent()) {
+			throw new UserAlreadyExistsException("A user with this Email ID already exists.");
+		}
+		empRepo.save(e);
 	}
 	
 	public List<Employee> listAll() {
-		return emp_repo.findAll();
+		return empRepo.findAll();
 	}
 	
 	public void updateEmployee(Employee e) throws Exception {
-		Optional<Employee> emp = emp_repo.findById(e.getEmployeeId());
+		Optional<Employee> emp = empRepo.findById(e.getEmployeeId());
 		if(emp.isEmpty()) {
 			throw new Exception("Invalid Employee Id.");
 		}
-		emp_repo.save(e);
+		empRepo.save(e);
 		return;
 	}
 	
 	public void deleteEmployee(Employee e) throws Exception {
-		Optional<Employee> emp = emp_repo.findById(e.getEmployeeId());
+		Optional<Employee> emp = empRepo.findById(e.getEmployeeId());
 		if(emp.isEmpty()) {
 			throw new Exception("Invalid Employee Id.");
 		}
@@ -91,12 +100,12 @@ public class EmployeeService {
 			}
 		}
 		
-		emp_repo.deleteById(e.getEmployeeId());
+		empRepo.deleteById(e.getEmployeeId());
 		return;
 	}
 	
 	public Set<ItemPurchase> listAllItems(String id) throws Exception {
-		Optional<Employee> emp = emp_repo.findById(id);
+		Optional<Employee> emp = empRepo.findById(id);
 		if(emp.isEmpty()) {
 			throw new Exception("Invalid Employee Id.");
 		}
@@ -105,7 +114,7 @@ public class EmployeeService {
 	}
 	
 	public Set<EmployeeLoan> listAllLoanCards(String id) throws Exception {
-		Optional<Employee> emp = emp_repo.findById(id);
+		Optional<Employee> emp = empRepo.findById(id);
 		if(emp.isEmpty()) {
 			throw new Exception("Invalid Employee Id.");
 		}

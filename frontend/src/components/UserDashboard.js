@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import '../styles/Dash.css';
 import ViewLoan from "./ViewLoan";
 import ViewItem from "./ViewItem";
+import UApplyLoan from "./UApplyLoan"
 
 
 const UserDashboard = () => {
 
     const [tabContent, setTabContent] = useState(0);
 
-    const tabContentComponents = [<h2 style={{ marginTop: "1%" }}>Select an option</h2>, <ViewLoan />, <ViewItem />]
+    const tabContentComponents = [<h2 style={{ marginTop: "1%" }}>Select an option</h2>, <ViewLoan />, <ViewItem />, <UApplyLoan />]
 
     const handleClick = (e, id) => {
         console.log("Value is ", e, id);
@@ -25,7 +26,7 @@ const UserDashboard = () => {
             <div className="button-container">
                 <button className="btn btn-primary" onClick={(e) => handleClick(e, 1)}>View Loans</button>
                 <button className="btn btn-primary" onClick={(e) => handleClick(e, 2)}>View Items</button>
-                <button className="btn btn-primary" onClick={(e) => handleClick(e, 3)}>Apply Loan</button>
+                <button className="btn btn-primary" onClick={(e) => handleClick(e, 3)}>Purchase Item</button>
             </div>
             {
                 tabContentComponents[tabContent]

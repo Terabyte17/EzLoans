@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wellsfargo.ezloans.exception.ResourceNotFoundException;
+import com.wellsfargo.ezloans.exception.UserAlreadyExistsException;
 import com.wellsfargo.ezloans.model.Employee;
 import com.wellsfargo.ezloans.model.EmployeeLoan;
 import com.wellsfargo.ezloans.model.ItemPurchase;
@@ -49,8 +50,8 @@ public class EmployeeController {
 			emp_service.saveEmployee(employee);
 			return new ResponseEntity<>("Employee added successfully.", HttpStatus.OK);
 		}
-		catch (DataIntegrityViolationException ex) {
-			return new ResponseEntity<>("User with same Email ID exists.", HttpStatus.BAD_REQUEST);
+		catch (UserAlreadyExistsException ex) {
+			return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 		catch (Exception ex) {
 			return new ResponseEntity<>("Error while saving employee.", HttpStatus.INTERNAL_SERVER_ERROR);
