@@ -15,14 +15,14 @@ import jakarta.transaction.Transactional;
 public class AdminService {
 	
 	@Autowired
-	private AdminRepository admin_repo;
+	private AdminRepository adminRepo;
 	
 	public Admin registerAdmin(Admin a) {
-		return admin_repo.save(a);
+		return adminRepo.save(a);
 	}
 	
 	public Optional<Admin> loginAdmin(String username) {
-		return admin_repo.findByUsername(username);
+		return adminRepo.findByUsername(username);
 	}
 	
 }

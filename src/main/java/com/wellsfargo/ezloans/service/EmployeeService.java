@@ -21,7 +21,7 @@ import jakarta.transaction.Transactional;
 public class EmployeeService {
 	
 	@Autowired
-	private EmployeeRepository emp_repo;
+	private EmployeeRepository empRepo;
 	
 	@Autowired
 	private ItemPurchaseRepository itemPurchaseRepo;
@@ -30,31 +30,31 @@ public class EmployeeService {
 	private EmployeeLoanRepository empLoanRepo;
 	
 	public String findByUsername(String username) throws Exception {
-		Optional<Employee> emp = emp_repo.findByAdminUsername(username);
+		Optional<Employee> emp = empRepo.findByAdminUsername(username);
 		if(emp.isEmpty())
 			throw new Exception("Invalid Username.");
 		return emp.get().getEmployeeId();
 	}
 	
 	public void saveEmployee(Employee e) throws Exception {
-		emp_repo.save(e);
+		empRepo.save(e);
 	}
 	
 	public List<Employee> listAll() {
-		return emp_repo.findAll();
+		return empRepo.findAll();
 	}
 	
 	public void updateEmployee(Employee e) throws Exception {
-		Optional<Employee> emp = emp_repo.findById(e.getEmployeeId());
+		Optional<Employee> emp = empRepo.findById(e.getEmployeeId());
 		if(emp.isEmpty()) {
 			throw new Exception("Invalid Employee Id.");
 		}
-		emp_repo.save(e);
+		empRepo.save(e);
 		return;
 	}
 	
 	public void deleteEmployee(Employee e) throws Exception {
-		Optional<Employee> emp = emp_repo.findById(e.getEmployeeId());
+		Optional<Employee> emp = empRepo.findById(e.getEmployeeId());
 		if(emp.isEmpty()) {
 			throw new Exception("Invalid Employee Id.");
 		}
@@ -74,12 +74,12 @@ public class EmployeeService {
 //				empLoanRepo.deleteById(empLoan.getLoanIssueId());
 //		}
 		
-		emp_repo.deleteById(e.getEmployeeId());
+		empRepo.deleteById(e.getEmployeeId());
 		return;
 	}
 	
 	public Set<ItemPurchase> listAllItems(String id) throws Exception {
-		Optional<Employee> emp = emp_repo.findById(id);
+		Optional<Employee> emp = empRepo.findById(id);
 		if(emp.isEmpty()) {
 			throw new Exception("Invalid Employee Id.");
 		}
@@ -88,7 +88,7 @@ public class EmployeeService {
 	}
 	
 	public Set<EmployeeLoan> listAllLoanCards(String id) throws Exception {
-		Optional<Employee> emp = emp_repo.findById(id);
+		Optional<Employee> emp = empRepo.findById(id);
 		if(emp.isEmpty()) {
 			throw new Exception("Invalid Employee Id.");
 		}

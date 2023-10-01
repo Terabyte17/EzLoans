@@ -29,13 +29,13 @@ import com.wellsfargo.ezloans.service.EmployeeService;
 public class EmployeeController {
 	
 	@Autowired
-	private EmployeeService emp_service;
+	private EmployeeService empService;
 	
 	@PostMapping("/login/user")
 	public String loginUser(@Validated @RequestBody Map<String, Object> payload) throws ResourceNotFoundException {
 		try {
 			String username = (String) payload.get("username");
-			String empId = emp_service.findByUsername(username);
+			String empId = empService.findByUsername(username);
 			return empId;
 		}
 		catch (Exception ex) {
@@ -46,7 +46,7 @@ public class EmployeeController {
 	@PostMapping("/users")
 	public ResponseEntity<String> saveEmployee(@Validated @RequestBody Employee employee) {
 		try {
-			emp_service.saveEmployee(employee);
+			empService.saveEmployee(employee);
 			return new ResponseEntity<>("Employee added successfully.", HttpStatus.OK);
 		}
 		catch (DataIntegrityViolationException ex) {
@@ -60,7 +60,7 @@ public class EmployeeController {
 	@Validated
 	@GetMapping("/users")
 	public ResponseEntity<?> getAllEmployee() {
-		List<Employee> emps = emp_service.listAll();
+		List<Employee> emps = empService.listAll();
 		if (emps.isEmpty())
 			return new ResponseEntity<>("No Employee Found.", HttpStatus.NOT_FOUND);
 		return new ResponseEntity<>(emps, HttpStatus.OK);
@@ -69,7 +69,7 @@ public class EmployeeController {
 	@PostMapping("/users/update")
 	public ResponseEntity<String> updateEmployee(@Validated @RequestBody Employee employee) {
 		try {
-			emp_service.updateEmployee(employee);
+			empService.updateEmployee(employee);
 			return new ResponseEntity<>("Employee updated successfully.", HttpStatus.OK);
 		}
 		catch (Exception ex) {
@@ -80,7 +80,7 @@ public class EmployeeController {
 	@PostMapping("/users/delete")
 	public ResponseEntity<String> deleteEmployee(@Validated @RequestBody Employee employee) {
 		try {
-			emp_service.deleteEmployee(employee);
+			empService.deleteEmployee(employee);
 			return new ResponseEntity<>("Employee deleted successfully.", HttpStatus.OK);
 		}
 		catch (Exception ex) {
@@ -91,7 +91,7 @@ public class EmployeeController {
 	@GetMapping("/users/items/{id}")
 	public ResponseEntity<?> viewAllPurchasedItems(@Validated @PathVariable String id) {
 		try {
-			Set<ItemPurchase> items = emp_service.listAllItems(id);
+			Set<ItemPurchase> items = empService.listAllItems(id);
 			if (items.isEmpty()) {
 				return new ResponseEntity<>("No items have been purchased by the user.", HttpStatus.NOT_FOUND);
 			}
@@ -105,7 +105,7 @@ public class EmployeeController {
 	@GetMapping("/users/loanCards/{id}")
 	public ResponseEntity<?> viewAllLoanCards(@Validated @PathVariable String id) {
 		try {
-			Set<EmployeeLoan> loans = emp_service.listAllLoanCards(id);
+			Set<EmployeeLoan> loans = empService.listAllLoanCards(id);
 			if (loans.isEmpty()) {
 				return new ResponseEntity<>("No loan cards have been assigned to the user.", HttpStatus.NOT_FOUND);
 			}
