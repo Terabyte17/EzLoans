@@ -48,5 +48,4 @@ public class EmployeeLoanRepositoryTest {
         assertTrue(result.contains(employeeLoan));
     }
 
-    // Add more test cases as needed for other repository methods and scenarios
 }
