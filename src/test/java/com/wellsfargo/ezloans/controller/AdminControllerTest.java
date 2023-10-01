@@ -30,7 +30,7 @@ public class AdminControllerTest {
         admin.setUsername(username);
         admin.setPassword(password);
         admin.setEnabled(true);
-        admin.setRole("admin");
+        admin.setRole("ROLE_ADMIN");
     }
     @Test
     public void testCreateAdmin_Success() {

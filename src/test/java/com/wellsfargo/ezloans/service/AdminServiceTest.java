@@ -25,7 +25,7 @@ public class AdminServiceTest {
         admin.setUsername(username);
         admin.setPassword(password);
         admin.setEnabled(true);
-        admin.setRole("admin");
+        admin.setRole("ROLE_ADMIN");
     }
     @Test
     public void testRegisterAdmin() {
