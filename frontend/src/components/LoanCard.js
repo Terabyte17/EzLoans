@@ -125,7 +125,7 @@ function LoanCard() {
         }).catch((error) => {
             console.log("Delete failed: ", error);
         })
-
+        fetchLoanCard();
     }
 
     const fetchLoanCard = () => {

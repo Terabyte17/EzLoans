@@ -137,6 +137,7 @@ function ItemData() {
         }).catch((error) => {
             console.log("Delete failed: ", error);
         })
+        console.log("yes");
         fetchItemData();
     }
 
