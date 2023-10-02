@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useImperativeHandle } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import '../styles/PurchaseItem.css';
 import AdminService from '../services/AdminService';
 import UserService from '../services/UserService';
 
 function UApplyLoan() {
     const [item, setItem] = useState([]);
     const [tableData, setTableData] = useState([]);
+    const [purchaseItem, setPurchaseItem] = useState([]);
 
     useEffect(() => {
         fetchItem();
@@ -53,21 +55,46 @@ function UApplyLoan() {
         }
     }
 
+    const handleClosePurchaseItemDetails = () => {
+        setPurchaseItem();
+    }
+
     const handlePurchaseItem = (key) => {
         console.log("key is : ", key);
         UserService.purchaseItem(item[key], localStorage.getItem("credentials"), localStorage.getItem("userId")).then((response) => {
             console.log("Purchase status: ", response);
+            setPurchaseItem(<div className='purchase-details'>
+                <div>
+                    <div><span className='purchase-header'>Item Successfully Purchased!</span></div>
+                </div>
+                <div>
+                    <button onClick={handleClosePurchaseItemDetails}>Close</button>
+                </div>
+            </div>);
+            fetchItem();
         }).catch((error) => {
             console.log("Purchase failed: ", error);
+            setPurchaseItem(<div className='purchase-details'>
+                <div>
+                    <div><span className='purchase-header'>Item Purchase Unsuccessful!</span></div>
+                </div>
+                <div>
+                    <button onClick={handleClosePurchaseItemDetails}>Close</button>
+                </div>
+            </div>);
+            fetchItem();
         })
-        fetchItem();
+
     }
 
     return (
         <div className="loan-data">
             <br />
-            <h1 className="text-dark">Apply Loan</h1>
+            <h1 className="text-dark">Purchase Item</h1>
             <br />
+            <div>
+                {purchaseItem}
+            </div>
             <div className="table-responsive mt-3" >
                 {tableData.length === 0 ? <p>No data</p> : <table className="table table-bordered">
                     <thead>
