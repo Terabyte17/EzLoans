@@ -3,6 +3,8 @@ package com.wellsfargo.ezloans.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.wellsfargo.ezloans.exception.InvalidRequestException;
+import com.wellsfargo.ezloans.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,10 +39,10 @@ public class ItemService {
 	public void updateItem(Item i) throws Exception {
 		Optional<Item> item = itemRepo.findById(i.getItemId());
 		if(item.isEmpty()) {
-			throw new Exception("Invalid Item Id");
+			throw new ResourceNotFoundException("Invalid Item Id");
 		}
 		if(item.get().getIssueStatus()==true && i.getIssueStatus()==false) {
-			throw new Exception("Item issued, can't change issue status directly. Need to return item.");
+			throw new InvalidRequestException("Item issued, can't change issue status directly. Need to return item.");
 		}
 		itemRepo.save(i);
 	}
@@ -48,7 +50,7 @@ public class ItemService {
 	public void deleteItem(Item i) throws Exception {
 		Optional<Item> item = itemRepo.findById(i.getItemId());
 		if(item.isEmpty()) {
-			throw new Exception("Invalid Item Id");
+			throw new ResourceNotFoundException("Invalid Item Id");
 		}
 		itemRepo.deleteById(i.getItemId());
 	}

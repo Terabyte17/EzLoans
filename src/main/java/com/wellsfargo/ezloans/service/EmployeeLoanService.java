@@ -42,7 +42,6 @@ public class EmployeeLoanService {
 		el.setLoanCard(loanCard.get());
 		
 		empLoanRepo.save(el);
-		return;
 	}
 	
 	public Set<EmployeeLoan> viewAllEmployeeLoans(String empId) {

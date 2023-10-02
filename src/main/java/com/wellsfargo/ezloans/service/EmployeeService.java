@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import com.wellsfargo.ezloans.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +33,7 @@ public class EmployeeService {
 	public String findByUsername(String username) throws Exception {
 		Optional<Employee> emp = empRepo.findByAdminUsername(username);
 		if(emp.isEmpty())
-			throw new Exception("Invalid Username.");
+			throw new ResourceNotFoundException("Invalid Username.");
 		return emp.get().getEmployeeId();
 	}
 	
@@ -47,16 +48,15 @@ public class EmployeeService {
 	public void updateEmployee(Employee e) throws Exception {
 		Optional<Employee> emp = empRepo.findById(e.getEmployeeId());
 		if(emp.isEmpty()) {
-			throw new Exception("Invalid Employee Id.");
+			throw new ResourceNotFoundException("Invalid Employee Id.");
 		}
 		empRepo.save(e);
-		return;
 	}
 	
 	public void deleteEmployee(Employee e) throws Exception {
 		Optional<Employee> emp = empRepo.findById(e.getEmployeeId());
 		if(emp.isEmpty()) {
-			throw new Exception("Invalid Employee Id.");
+			throw new ResourceNotFoundException("Invalid Employee Id.");
 		}
 		
 		
@@ -75,13 +75,12 @@ public class EmployeeService {
 //		}
 		
 		empRepo.deleteById(e.getEmployeeId());
-		return;
 	}
 	
 	public Set<ItemPurchase> listAllItems(String id) throws Exception {
 		Optional<Employee> emp = empRepo.findById(id);
 		if(emp.isEmpty()) {
-			throw new Exception("Invalid Employee Id.");
+			throw new ResourceNotFoundException("Invalid Employee Id.");
 		}
 		Set<ItemPurchase> items = emp.get().getItemsPurchased();
 		return items;
@@ -90,7 +89,7 @@ public class EmployeeService {
 	public Set<EmployeeLoan> listAllLoanCards(String id) throws Exception {
 		Optional<Employee> emp = empRepo.findById(id);
 		if(emp.isEmpty()) {
-			throw new Exception("Invalid Employee Id.");
+			throw new ResourceNotFoundException("Invalid Employee Id.");
 		}
 		Set<EmployeeLoan> loanCards = emp.get().getLoanCards();
 		return loanCards;
