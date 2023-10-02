@@ -55,4 +55,12 @@ public class ItemService {
 		itemRepo.deleteById(i.getItemId());
 		return;
 	}
+	
+	public Item findById(String id) throws Exception {
+		Optional<Item> item = itemRepo.findById(id);
+		if(item.isEmpty()) {
+			throw new Exception("Invalid Item Id");
+		}
+		return item.get();
+	}
 }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useImperativeHandle } from 'react'
 import { useNavigate } from 'react-router-dom';
 
+import '../styles/ViewItem.css';
 import UserService from '../services/UserService';
 
 
@@ -9,6 +10,7 @@ function ViewItem() {
     // state Management using useState() Hook */
     const [viewItem, setViewItem] = useState([]);
     const [tableData, setTableData] = useState([]);
+    const [itemDetails, setItemDetails] = useState();
 
     useEffect(() => {
         fetchViewItem();
@@ -17,6 +19,29 @@ function ViewItem() {
     useEffect(() => {
         populateTableFields();
     }, [viewItem]);
+
+    const handleCloseItemDetails = () => {
+        setItemDetails();
+    }
+
+    const handleItem = (itemId) => {
+        console.log("Loan clicked");
+        UserService.getItemDetails(localStorage.getItem("credentials"), itemId).then((response) => {
+            console.log(response.data);
+            setItemDetails(<div className='item-details'>
+                <div>
+                    <div><span className='item-header'>Item Description: </span>{response.data.itemDesc}</div>
+                    <div><span className='item-header'>Issue Status: </span>{(response.data.issueStatus == true || response.data.issueStatus == "True") ? "True" : "False"}</div>
+                    <div><span className='item-header'>Item Make: </span>{response.data.itemMake}</div>
+                    <div><span className='item-header'>Item Valuation: </span>{response.data.itemValuation}</div>
+                    <div><span className='item-header'>Item Category: </span>{response.data.itemCategory}</div>
+                </div>
+                <div>
+                    <button onClick={handleCloseItemDetails}>Close</button>
+                </div>
+            </div>);
+        })
+    }
 
     const fetchViewItem = () => {
         UserService.getCustomerItems(localStorage.getItem("credentials"), localStorage.getItem("userId")).then((response) => {
@@ -45,7 +70,7 @@ function ViewItem() {
                     tableFields.push(
                         <tr key={data.issueId}>
                             <td> {data.issueId}</td>
-                            <td> <a href="http://localhost:8088/items"> {data.item.itemId}</a> </td>
+                            <td> <button onClick={() => handleItem(data.item.itemId)}> {data.item.itemId} </button> </td>
                             <td> {data.item.itemValuation} </td>
                             <td> {string_issuedate} </td>
                         </tr>)
@@ -61,6 +86,9 @@ function ViewItem() {
             <br />
             <h1 className="text-dark">View Items</h1>
             <br />
+            <div>
+                {itemDetails}
+            </div>
             <div className="table-responsive mt-3" >
                 {tableData.length === 0 ? <p>No data</p> : <table className="table table-bordered">
                     <thead>

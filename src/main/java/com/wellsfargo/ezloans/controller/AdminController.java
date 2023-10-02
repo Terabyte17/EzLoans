@@ -44,7 +44,9 @@ public class AdminController {
 			String username = (String) payload.get("username");
 			Optional<Admin> admin = admin_service.loginAdmin(username);
 			if (admin.isEmpty())
-				return null;
+				System.out.println("empty");
+			if (admin.get().getRole().compareTo("ROLE_ADMIN")!=0)
+				return null;			
 			return "" + admin.get().getId();
 		}
 		catch (Exception ex) {

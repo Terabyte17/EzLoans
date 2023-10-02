@@ -12,6 +12,7 @@ const Login = (props) => {
         password: ''
     });
     const [loginUnsuccessful, setLoginUnsuccessful] = useState(false);
+    const [submitBtnDisabled, setSubmitBtnDisabled] = useState(false);
 
     const onChangeHandler = (event) => {
         console.log("Event is: ", event)
@@ -24,6 +25,7 @@ const Login = (props) => {
     const onLoginError = () => {
         console.log("login unsucessful")
         setLoginUnsuccessful(true);
+        setSubmitBtnDisabled(false);
     }
 
     const handleSubmit = (e) => {
@@ -44,6 +46,8 @@ const Login = (props) => {
                 }
             }
             ).then(res => {
+                console.log("yes1");
+                console.log(res.data);
                 if (res.data == "") {
                     onLoginError();
                 } else {
@@ -161,7 +165,7 @@ const Login = (props) => {
                         />
                     </div>
                     <div className="d-grid">
-                        <button type="submit" className="btn btn-primary">
+                        <button type="submit" className="btn btn-primary" disabled={submitBtnDisabled}>
                             Submit
                         </button>
                     </div>
