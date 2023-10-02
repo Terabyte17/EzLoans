@@ -30,12 +30,10 @@ public class AdminControllerTest {
         admin.setUsername(username);
         admin.setPassword(password);
         admin.setEnabled(true);
-        admin.setRole("admin");
+        admin.setRole("ROLE_ADMIN");
     }
     @Test
     public void testCreateAdmin_Success() {
-        Admin admin = new Admin();
-        admin.setUsername(username);
         when(adminService.registerAdmin(admin)).thenReturn(admin);
         ResponseEntity<String> response = adminController.createAdmin(admin);
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -44,12 +42,18 @@ public class AdminControllerTest {
     }
     @Test
     public void testCreateAdmin_Failure() {
-        Admin admin = new Admin();
-        admin.setUsername(username);
         when(adminService.registerAdmin(admin)).thenReturn(null);
         ResponseEntity<String> response = adminController.createAdmin(admin);
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
         assertEquals("Registration Failed!", response.getBody());
+        verify(adminService, times(1)).registerAdmin(admin);
+    }
+    @Test
+    public void testCreateAdmin_Exception(){
+        when(adminService.registerAdmin(admin)).thenThrow(RuntimeException.class);
+        ResponseEntity<String> response = adminController.createAdmin(admin);
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+        assertEquals("An error occurred: null", response.getBody());
         verify(adminService, times(1)).registerAdmin(admin);
     }
     @Test
@@ -69,5 +73,14 @@ public class AdminControllerTest {
         String result = adminController.loginAdmin(payload);
         assertNull(result);
         verify(adminService, times(1)).loginAdmin("nonexistent");
+    }
+    @Test
+    public void testLoginAdmin_Exception() throws ResourceNotFoundException{
+        when(adminService.loginAdmin(username)).thenThrow(RuntimeException.class);
+        Map<String, Object> payload = new HashMap<>();
+        payload.put("username", username);
+        String result = adminController.loginAdmin(payload);
+        assertNull(result);
+        verify(adminService, times(1)).loginAdmin(username);
     }
 }

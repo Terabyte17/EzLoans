@@ -15,15 +15,14 @@ import jakarta.transaction.Transactional;
 @Service
 @Transactional
 public class ItemService {
-	
+
 	@Autowired
 	private ItemRepository itemRepo;
-	
+
 	public void saveItem(Item i) {
 		itemRepo.save(i);
-		return;
 	}
-	
+
 	public List<Item> listAll(Optional<Boolean> issueStatus, Optional<Category> itemMake) {
 		if (issueStatus.isEmpty() && itemMake.isEmpty())
 			return itemRepo.findAll();
@@ -34,7 +33,7 @@ public class ItemService {
 		else
 			return itemRepo.findByItemCategory(itemMake.get());
 	}
-	
+
 	public void updateItem(Item i) throws Exception {
 		Optional<Item> item = itemRepo.findById(i.getItemId());
 		if(item.isEmpty()) {
@@ -44,15 +43,13 @@ public class ItemService {
 			throw new Exception("Item issued, can't change issue status directly. Need to return item.");
 		}
 		itemRepo.save(i);
-		return;
 	}
-	
+
 	public void deleteItem(Item i) throws Exception {
 		Optional<Item> item = itemRepo.findById(i.getItemId());
 		if(item.isEmpty()) {
 			throw new Exception("Invalid Item Id");
 		}
 		itemRepo.deleteById(i.getItemId());
-		return;
 	}
 }
