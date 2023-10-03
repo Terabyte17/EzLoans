@@ -3,6 +3,7 @@ package com.wellsfargo.ezloans.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.wellsfargo.ezloans.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,6 @@ public class LoanService {
 	
 	public void saveLoanCard(LoanCard l) {
 		loanRepo.save(l);
-		return;
 	}
 	
 	public List<LoanCard> listAll() {
@@ -30,18 +30,16 @@ public class LoanService {
 	public void updateLoan(LoanCard l) throws Exception {
 		Optional<LoanCard> loan = loanRepo.findById(l.getLoanId());
 		if(loan.isEmpty()) {
-			throw new Exception("Invalid Loan Id");
+			throw new ResourceNotFoundException("Invalid Loan Id");
 		}
 		loanRepo.save(l);
-		return;
 	}
 	
 	public void deleteLoan(LoanCard l) throws Exception {
 		Optional<LoanCard> loan = loanRepo.findById(l.getLoanId());
 		if(loan.isEmpty()) {
-			throw new Exception("Invalid Loan Id");
+			throw new ResourceNotFoundException("Invalid Loan Id");
 		}
 		loanRepo.deleteById(l.getLoanId());
-		return;
 	}
 }

@@ -32,7 +32,7 @@ public class EmployeeLoanControllerTest {
         MockitoAnnotations.openMocks(this);
 
         employeeLoan = new EmployeeLoan();
-        employeeLoan.setCardIssueDate(new Date());;
+        employeeLoan.setCardIssueDate(new Date());
     }
 
     @Test

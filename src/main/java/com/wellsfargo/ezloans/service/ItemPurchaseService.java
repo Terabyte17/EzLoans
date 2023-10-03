@@ -50,7 +50,6 @@ public class ItemPurchaseService {
 		ip.setItem(item.get());
 		
 		itemPurchaseRepo.save(ip);
-		return;
 	}
 	
 	public Set<ItemPurchase> viewAllItemsPurchased(String empId) {
